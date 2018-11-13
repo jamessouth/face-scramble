@@ -1,0 +1,21 @@
+FlexboxLayout {
+  justify-content: center;
+  align-items: center;
+  /* background-size: cover;
+  background-image: url("~/images/background.jpg"); */
+}
+FlexboxLayout > FlexboxLayout {
+  height: 50%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000000;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* width: 300;
+  padding: 10 16; */
+  /* background-color: #f040f0; */
+}
+.btn {
+    width: 80%;
+}
