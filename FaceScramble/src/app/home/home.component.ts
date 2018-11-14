@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
         // Init your component properties here.
     }
 
-    newPhoto(): void {
+    enter(): void {
       alert('new photo');
     }
 }

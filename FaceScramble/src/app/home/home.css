@@ -1,21 +1,35 @@
 FlexboxLayout {
   justify-content: center;
   align-items: center;
+  /* flex-direction: column; */
   /* background-size: cover;
   background-image: url("~/images/background.jpg"); */
 }
-FlexboxLayout > FlexboxLayout {
+/* FlexboxLayout > FlexboxLayout {
   height: 50%;
   border-width: 1px;
   border-style: solid;
-  border-color: #000000;
+  border-color: #ff0000;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  /* width: 300;
-  padding: 10 16; */
-  /* background-color: #f040f0; */
+  width: 300;
+  padding: 10 16;
+  background-color: #f040f0;
+} */
+.page{
+  background: linear-gradient(#839755 10%, #eee0cb 50%, #839755 90%);
 }
 .btn {
     width: 80%;
+    background-color: #880d1e;
+    color: #eee0cb;
+    font-size: 18;
+    /* border-width: 20px;
+    border-style: solid;
+    border-color: #006968; */
 }
+/* .btn-active{
+  background-color: #000000;
+  color: #eee0cb;
+} */
