@@ -3,10 +3,5 @@
 </ActionBar>
 
 <FlexboxLayout class="page">
-  <Button class="btn btn-primary btn-rounded-sm btn-active" text="Enter" (tap)="enter()"></Button>
-  <!-- <Label class="h1" text="Puzzle Options"></Label>
-  <FlexboxLayout>
-    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Take New Photo" (tap)="newPhoto()"></Button>
-    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Use Existing Photo" (tap)="onButtonTap2()"></Button>
-  </FlexboxLayout> -->
+  <Button class="btn btn-primary btn-rounded-sm btn-active" text="Enter" [nsRouterLink]="['/opts']"></Button>
 </FlexboxLayout>
