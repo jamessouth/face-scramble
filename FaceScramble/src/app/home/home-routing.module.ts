@@ -3,11 +3,13 @@ import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
 import { HomeComponent } from "./home.component";
-import { PuzzleComponent } from "./puzzle/puzzle.component";
+import { OptsComponent } from "./opts/opts.component";
+import { PuzzComponent } from "./puzz/puzz.component";
 
 const routes: Routes = [
     { path: "home", component: HomeComponent },
-    { path: "puzzle", component: PuzzleComponent }
+    { path: "opts", component: OptsComponent },
+    { path: "puzz", component: PuzzComponent }
 ];
 
 @NgModule({
