@@ -5,11 +5,15 @@ import { HomeRoutingModule } from "./home-routing.module";
 import { HomeComponent } from "./home.component";
 import { OptsComponent } from "./opts/opts.component";
 import { PuzzComponent } from "./puzz/puzz.component";
+import { OptionsService } from './options.service';
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
         HomeRoutingModule
+    ],
+    providers: [
+      OptionsService
     ],
     declarations: [
         HomeComponent,

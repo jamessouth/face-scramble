@@ -21,5 +21,5 @@ components that have the btn class name.
   color: #000000;
 }
 .page{
-  background: linear-gradient(#839755 10%, #eee0cb 50%, #839755 90%);
+  background: linear-gradient(#839755 0%, #eee0cb 50%, #839755 100%);
 }

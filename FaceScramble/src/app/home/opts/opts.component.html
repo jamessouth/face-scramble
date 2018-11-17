@@ -3,6 +3,36 @@
 </ActionBar>
 
 <FlexboxLayout class="page">
-  <Button class="btn btn-primary btn-rounded-sm btn-active" text="Play!" [nsRouterLink]="['/puzz']" (tap)="newColor()"></Button>
-  <Label text="{{color}}"></Label>
+  <StackLayout>
+    <Label class="text-center dim" text="Dimensions"></Label>
+    <StackLayout class="hr-dark m-10"></StackLayout>
+    <StackLayout>
+      <Label class="text-center" [text]="'Width in Tiles: ' + width"></Label>
+      <Slider class="m-b-5" value="2" (valueChange)="onWidthSliderChange($event)" minValue="2" maxValue="10"></Slider>
+    </StackLayout>
+    <StackLayout class="hr-dark m-10"></StackLayout>
+    <StackLayout>
+      <Label class="text-center" [text]="'Height in Tiles: ' + height"></Label>
+      <Slider class="m-b-5" value="2" (valueChange)="onHeightSliderChange($event)" minValue="2" maxValue="10"></Slider>
+    </StackLayout>
+    <StackLayout class="hr-dark m-10"></StackLayout>
+  </StackLayout>
+
+  <StackLayout>
+    <Label class="m-b-10 text-center" text="Color for Blank Tile:"></Label>
+    <Label width="50" height="50" backgroundColor="{{color}}"></Label>
+
+    <Slider class="m-b-5" value="0" (valueChange)="onRedSliderChange($event)" minValue="0" maxValue="255"></Slider>
+
+    <Slider class="m-b-5" value="0" (valueChange)="onGreenSliderChange($event)" minValue="0" maxValue="255"></Slider>
+
+    <Slider class="m-b-5" value="0" (valueChange)="onBlueSliderChange($event)" minValue="0" maxValue="255"></Slider>
+
+  </StackLayout>
+
+
+
+    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Play!" [nsRouterLink]="['/puzz']"></Button>
+
+
 </FlexboxLayout>

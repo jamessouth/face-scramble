@@ -1,1 +1,15 @@
+FlexboxLayout{
+  flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
+}
+Slider{
+  width: 90%;
+}
+StackLayout Label{
+  font-size: 20;
 
+}
+StackLayout Label.dim{
+  font-size: 22;
+}
