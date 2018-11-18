@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 export class OptionsService {
 
   // Observable string sources
-  private defaultColor = new BehaviorSubject('#ffffff');
+  private defaultColor = new BehaviorSubject('#000000');
   private defaultWidth = new BehaviorSubject(2);
   private defaultHeight = new BehaviorSubject(2);
   // private missionConfirmedSource = new Subject<string>();

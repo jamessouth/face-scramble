@@ -6,10 +6,23 @@ FlexboxLayout{
 Slider{
   width: 90%;
 }
-StackLayout Label{
+Label{
   font-size: 20;
-
 }
-StackLayout Label.dim{
+/* StackLayout Label.dim{
   font-size: 22;
+} */
+/* GridLayout{
+  width: 80%;
+  height: 300;
+  border-width: 1px;
+  border-color: #111111;
+  border-style: solid;
 }
+.slid{
+
+
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+} */
