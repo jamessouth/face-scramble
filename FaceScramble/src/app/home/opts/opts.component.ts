@@ -13,9 +13,9 @@ export class OptsComponent implements OnInit {
   // selectedIndex: number;
   width: number;
   height: number;
-  red: number = 0;
-  green: number = 0;
-  blue: number = 0;
+  red: string = '00';
+  green: string = '00';
+  blue: string = '00';
 
 
 
@@ -31,42 +31,42 @@ export class OptsComponent implements OnInit {
   }
 
   public onWidthSliderChange(args) {
-    console.log('w ', args.value);
-    this.data.changeWidth(args.value);
+    // console.log('w ', args.value);
+    this.data.changeWidth(Math.floor(args.value));
   }
 
   public onHeightSliderChange(args) {
-    console.log('h ', args.value);
-    this.data.changeHeight(args.value);
+    // console.log('h ', Math.floor(args.value));
+    this.data.changeHeight(Math.floor(args.value));
   }
 
   public onRedSliderChange(args) {
-    this.red = args.value;
-    this.getHexValue(this.red.toString(16), this.green.toString(16), this.blue.toString(16));
+    this.red = (Math.floor(args.value)).toString(16);
+    this.getHexValue(this.red, this.green, this.blue);
   }
 
   public onGreenSliderChange(args) {
-    this.green = args.value;
-    this.getHexValue(this.red.toString(16), this.green.toString(16), this.blue.toString(16));
+    this.green = (Math.floor(args.value)).toString(16);
+    this.getHexValue(this.red, this.green, this.blue);
   }
 
   public onBlueSliderChange(args) {
-    this.blue = args.value;
-    this.getHexValue(this.red.toString(16), this.green.toString(16), this.blue.toString(16));
+    this.blue = (Math.floor(args.value)).toString(16);
+    this.getHexValue(this.red, this.green, this.blue);
   }
 
   getHexValue(r, g, b) {
-    if (r.length < 2) {
-      r = `0${r}`
-    }
-    if (g.length < 2) {
-      g = `0${g}`
-    }
-    if (b.length < 2) {
-      b = `0${b}`
-    }
+    // if (r.length < 2) {
+    //   r = `0${r}`
+    // }
+    // if (g.length < 2) {
+    //   g = `0${g}`
+    // }
+    // if (b.length < 2) {
+    //   b = `0${b}`
+    // }
 
-    const hex = `#${r}${g}${b}`;
+    const hex = `#${r.padStart(2, '0')}${g.padStart(2, '0')}${b.padStart(2, '0')}`;
     console.log(hex);
     this.data.changeColor(hex);
   }

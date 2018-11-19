@@ -8,6 +8,7 @@ Slider{
 }
 Label{
   font-size: 20;
+  /* color: #383838; */
 }
 /* StackLayout Label.dim{
   font-size: 22;
@@ -26,3 +27,19 @@ Label{
   justify-content: center;
   align-items: flex-end;
 } */
+.btn{
+  background-color: #880d1e;
+  color: #eee0cb;
+  font-size: 18;
+  margin-bottom: 35;
+  /* width: 80%; */
+}
+.slider{
+  color: #2274a5;
+  background-color: #2274a5;
+}
+.bord{
+  /* width: 90%; */
+  border-bottom-color: #303030;
+  border-bottom-width: 2;
+}
