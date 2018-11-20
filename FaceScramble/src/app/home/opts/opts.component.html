@@ -3,41 +3,35 @@
 </ActionBar>
 
 <ScrollView>
-<FlexboxLayout class="page">
-<StackLayout class="m-b-20 bord">
-  <StackLayout class="m-b-20">
-    <Label class="m-t-10 m-b-10 text-center" text="Color for Blank Tile:"></Label>
-    <Label width="50" height="50" backgroundColor="{{color}}"></Label>
-  </StackLayout>
-  <StackLayout class="m-b-10">
-    <Label class="text-center" text="Red"></Label>
-    <Slider class="slider" value="0" (valueChange)="onRedSliderChange($event)" minValue="0" maxValue="255"></Slider>
-  </StackLayout>
-  <StackLayout class="m-b-10">
-    <Label class="text-center" text="Green"></Label>
-    <Slider class="slider" value="0" (valueChange)="onGreenSliderChange($event)" minValue="0" maxValue="255"></Slider>
-  </StackLayout>
-  <StackLayout class="m-b-10">
-    <Label class="text-center" text="Blue"></Label>
-    <Slider class="slider" value="0" (valueChange)="onBlueSliderChange($event)" minValue="0" maxValue="255"></Slider>
-  </StackLayout>
-</StackLayout>
-<!-- <StackLayout class="hr-dark m-10"></StackLayout> -->
-<StackLayout>
-  <StackLayout class="m-b-10">
-    <Label class="m-t-10 text-center" [text]="'Width in Tiles: ' + width"></Label>
-    <Slider class="slider" value="2" (valueChange)="onWidthSliderChange($event)" minValue="2" maxValue="10"></Slider>
-  </StackLayout>
-  <StackLayout>
-    <Label class="text-center" [text]="'Height in Tiles: ' + height"></Label>
-    <Slider class="slider" value="2" (valueChange)="onHeightSliderChange($event)" minValue="2" maxValue="10"></Slider>
-  </StackLayout>
-</StackLayout>
-
-
-
+  <FlexboxLayout class="page">
+    <StackLayout class="m-b-20 bord">
+      <StackLayout class="m-b-20">
+        <Label class="m-t-10 m-b-10 text-center" text="Color for Blank Tile:"></Label>
+        <Label width="50" height="50" backgroundColor="{{color}}"></Label>
+      </StackLayout>
+      <StackLayout class="m-b-10">
+        <Label class="text-center" text="Red"></Label>
+        <Slider class="slider" value="0" (valueChange)="onRedSliderChange($event)" minValue="0" maxValue="255"></Slider>
+      </StackLayout>
+      <StackLayout class="m-b-10">
+        <Label class="text-center" text="Green"></Label>
+        <Slider class="slider" value="0" (valueChange)="onGreenSliderChange($event)" minValue="0" maxValue="255"></Slider>
+      </StackLayout>
+      <StackLayout class="m-b-10">
+        <Label class="text-center" text="Blue"></Label>
+        <Slider class="slider" value="0" (valueChange)="onBlueSliderChange($event)" minValue="0" maxValue="255"></Slider>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout>
+      <StackLayout class="m-b-10">
+        <Label class="m-t-10 text-center" [text]="'Width in Tiles: ' + width"></Label>
+        <Slider class="slider" value="2" (valueChange)="onWidthSliderChange($event)" minValue="2" maxValue="10"></Slider>
+      </StackLayout>
+      <StackLayout>
+        <Label class="text-center" [text]="'Height in Tiles: ' + height"></Label>
+        <Slider class="slider" value="2" (valueChange)="onHeightSliderChange($event)" minValue="2" maxValue="10"></Slider>
+      </StackLayout>
+    </StackLayout>
     <Button class="btn btn-primary btn-rounded-sm btn-active" text="Play!" [nsRouterLink]="['/puzz']"></Button>
-
-
-</FlexboxLayout>
+  </FlexboxLayout>
 </ScrollView>

@@ -56,22 +56,9 @@ export class OptsComponent implements OnInit {
   }
 
   getHexValue(r, g, b) {
-    // if (r.length < 2) {
-    //   r = `0${r}`
-    // }
-    // if (g.length < 2) {
-    //   g = `0${g}`
-    // }
-    // if (b.length < 2) {
-    //   b = `0${b}`
-    // }
-
     const hex = `#${r.padStart(2, '0')}${g.padStart(2, '0')}${b.padStart(2, '0')}`;
     console.log(hex);
     this.data.changeColor(hex);
   }
 
-  // newColor() {
-  //   this.data.changeColor('#000123');
-  // }
 }

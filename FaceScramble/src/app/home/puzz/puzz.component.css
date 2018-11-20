@@ -1,12 +1,13 @@
 GridLayout Label{
-  width: 50;
-  height: 50;
+  /* width: 50;
+  height: 50; */
+  /* background-size: contain; */
 }
 GridLayout{
   /* background-color: #111111; */
-  width: 100;
+  /* width: 100; */
 }
-.one{
+/* .one{
   background-color: #ff0000;
 }
 .one2{
@@ -14,7 +15,7 @@ GridLayout{
 }
 .one3{
   background-color: #0000ff;
-}
+} */
 FlexboxLayout{
   flex-direction: column;
   justify-content: space-around;

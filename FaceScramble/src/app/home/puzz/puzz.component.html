@@ -1,16 +1,12 @@
 <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Puzzle"></Label>
+    <Label class="action-bar-title" text="Puzzle w {{width}} h {{height}} c {{color}}"></Label>
 </ActionBar>
 
 <FlexboxLayout>
-  <Label text="w {{width}}  h {{height}}  c {{color}}"></Label>
+
+  <GridLayout #grid (loaded)="onGridLoad(grid)" (tap)="ttt($event)" backgroundColor="{{color}}" columns="300" rows="300">
 
 
-
-  <GridLayout backgroundColor="{{color}}" columns="50,50" rows="50,50">
-    <Label class="one" row="0" col="0"></Label>
-    <Label (tap)="ttt($event)" class="one2" row="0" col="1"></Label>
-    <Label class="one3" row="1" col="0"></Label>
 
   </GridLayout>
 
