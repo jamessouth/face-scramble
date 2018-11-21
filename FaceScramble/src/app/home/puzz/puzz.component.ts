@@ -13,8 +13,9 @@ import { Label } from "tns-core-modules/ui/label";
 })
 export class PuzzComponent implements OnInit {
   color: string;
-  width: number;
-  height: number;
+  size: number;
+  // width: number;
+  // height: number;
 
   public newLabel: Label;
   public IMAGE_URL: string = '~/images/project12.jpg';
@@ -24,10 +25,10 @@ export class PuzzComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data.currentWidth$.subscribe(width => this.width = width);
-    this.data.currentHeight$.subscribe(height => this.height = height);
+    // this.data.currentWidth$.subscribe(width => this.width = width);
+    // this.data.currentHeight$.subscribe(height => this.height = height);
     this.data.currentColor$.subscribe(color => this.color = color);
-
+    this.data.currentSize$.subscribe(size => this.size = size);
 
   }
 

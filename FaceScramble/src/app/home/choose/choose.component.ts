@@ -1,0 +1,59 @@
+import { Component, OnInit } from "@angular/core";
+import { OptionsService } from '../options.service';
+import * as imagepicker from "nativescript-imagepicker";
+
+@Component({
+  selector: "Choose",
+  templateUrl: "./app/home/choose/choose.component.html",
+  styleUrls: ["./app/home/choose/choose.component.css"]
+})
+
+export class ChooseComponent implements OnInit {
+  imageSrc: any;
+  // previewSize: number = 300;
+  image: string;
+
+
+  constructor(private data: OptionsService) {
+      // Use the component constructor to inject providers.
+  }
+
+  ngOnInit(): void {
+    this.data.currentImage$.subscribe(image => this.image = image);
+    // this.data.currentWidth$.subscribe(width => this.width = width);
+    // this.data.currentHeight$.subscribe(height => this.height = height);
+      // Init your component properties here.
+  }
+
+  public onChoosePhoto(): void {
+    const context = imagepicker.create({
+        mode: "single"
+    });
+    this.startSelection(context);
+  }
+
+  private startSelection(context) {
+    let that = this;
+
+    context
+    .authorize()
+    .then(() => {
+
+        that.imageSrc = null;
+        return context.present();
+    })
+    .then((selection) => {
+        console.log("Selection done: " + JSON.stringify(selection));
+        that.imageSrc = selection.length > 0 ? selection[0] : null;
+
+        // selection.forEach(function (element) {
+        //     element.options.width = that.previewSize;
+        //     element.options.height = that.previewSize;
+        // });
+
+    }).catch(function (e) {
+        console.log(e);
+    });
+  }
+
+}

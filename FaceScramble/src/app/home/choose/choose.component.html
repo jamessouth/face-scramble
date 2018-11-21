@@ -1,0 +1,17 @@
+<ActionBar class="action-bar">
+    <Label class="action-bar-title" text="Choose Photo"></Label>
+</ActionBar>
+
+<ScrollView>
+  <FlexboxLayout class="page">
+    <StackLayout>
+      <Button class="picbtn btn btn-primary btn-rounded-sm btn-active" text="Choose Photo" (tap)="onChoosePhoto()"></Button>
+
+      <FlexboxLayout *ngIf="imageSrc" class="img m-b-30">
+        <Image width="300" height="300" [src]="imageSrc"></Image>
+      </FlexboxLayout>
+
+    </StackLayout>
+    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Next >" [nsRouterLink]="['/edit']"></Button>
+  </FlexboxLayout>
+</ScrollView>
