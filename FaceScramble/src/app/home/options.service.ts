@@ -7,7 +7,7 @@ export class OptionsService {
   // Observable string sources
   private defaultColor = new BehaviorSubject('#000000');
   private defaultSize = new BehaviorSubject(2);
-  private defaultImage = new BehaviorSubject('');
+  private defaultImage = new BehaviorSubject({});
   // private defaultWidth = new BehaviorSubject(2);
   // private defaultHeight = new BehaviorSubject(2);
   // private missionConfirmedSource = new Subject<string>();
@@ -31,7 +31,7 @@ export class OptionsService {
   changeSize(size: number) {
     this.defaultSize.next(size);
   }
-  changeImage(image: string) {
+  changeImage(image: any) {
     this.defaultImage.next(image);
   }
   // changeWidth(width: number) {

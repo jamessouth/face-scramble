@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { OptionsService } from '../options.service';
 import * as imagepicker from "nativescript-imagepicker";
+import { ImageSource, fromFile } from "image-source";
 
 @Component({
   selector: "Choose",
@@ -10,8 +11,7 @@ import * as imagepicker from "nativescript-imagepicker";
 
 export class ChooseComponent implements OnInit {
   imageSrc: any;
-  // previewSize: number = 300;
-  image: string;
+  image: any;
 
 
   constructor(private data: OptionsService) {
@@ -46,10 +46,10 @@ export class ChooseComponent implements OnInit {
         console.log("Selection done: " + JSON.stringify(selection));
         that.imageSrc = selection.length > 0 ? selection[0] : null;
 
-        // selection.forEach(function (element) {
-        //     element.options.width = that.previewSize;
-        //     element.options.height = that.previewSize;
-        // });
+        this.data.changeImage(this.imageSrc);
+        console.log('imagesrc', fromFile(this.imageSrc._android).width);
+        console.log();
+        console.log('this', this.image);
 
     }).catch(function (e) {
         console.log(e);

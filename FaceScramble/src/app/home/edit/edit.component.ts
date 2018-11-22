@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { OptionsService } from '../options.service';
 import { PhotoEditor, PhotoEditorControl } from "nativescript-photo-editor";
 import { ImageSource } from "image-source";
+import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
 
 @Component({
   selector: "Edit",
@@ -11,9 +12,8 @@ import { ImageSource } from "image-source";
 
 export class EditComponent implements OnInit {
   imageSrc: any;
-  // previewSize: number = 300;
-  image: string;
-
+  image: any;
+  size: number;
 
   constructor(private data: OptionsService) {
       // Use the component constructor to inject providers.
@@ -21,6 +21,7 @@ export class EditComponent implements OnInit {
 
   ngOnInit(): void {
     this.data.currentImage$.subscribe(image => this.image = image);
+    this.data.currentSize$.subscribe(size => this.size = size);
     // this.data.currentWidth$.subscribe(width => this.width = width);
     // this.data.currentHeight$.subscribe(height => this.height = height);
       // Init your component properties here.
@@ -28,6 +29,7 @@ export class EditComponent implements OnInit {
 
   public onEditPhoto(): void {
     console.log('here');
+    console.dir(screen.mainScreen);
     // const photoEditor = new PhotoEditor();
     // this.startEdit(photoEditor)
   }
@@ -42,6 +44,7 @@ export class EditComponent implements OnInit {
     }).then((newImage: ImageSource) => {
         // Here you can save newImage, send it to your backend or simply display it in your app
         this.imageSrc = newImage;
+        this.data.changeImage(this.imageSrc);
     }).catch((e) => {
         console.error(e);
     });
