@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { OptionsService } from '../options.service';
-import { GestureEventData } from "tns-core-modules/ui/gestures";
+import { GestureEventData, TouchGestureEventData } from "tns-core-modules/ui/gestures";
 // import { Image } from "tns-core-modules/ui/image";
 // import { Label } from "tns-core-modules/ui/label";
 import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
@@ -17,10 +17,39 @@ export class PuzzComponent implements OnInit {
   color: string;
   size: number;
   image: any;
+
+
+  public coordX: number = 0;
+  public coordY: number = 0;
+  public tileSize: number = 0;
+
+  canvArray: any = [];
+
+  boardOrder: any = [];
+
+  onTouch(e: TouchGestureEventData) {
+      // console.log("Object that triggered the event: " + e.object);
+      // console.log("View that triggered the event: " + e.view);
+      // console.log("Event name: " + e.eventName);
+      // console.log("Touch action (up, down, cancel or move)" + e.action);
+      // console.log("Touch point: [" + e.getX() + ", " + e.getY() + "]");
+      // console.log("activePointers: " + e.getActivePointers().length);
+      if(e && e.action === 'down'){
+        this.coordX = e.getX();
+        this.coordY = e.getY();
+        console.log(this.coordX, this.coordY);
+        this.swapTiles(this.coordX, this.coordY, e.view);
+      }
+
+      // console.log();
+      // console.dir(args);
+  }
+
+
   // width: number;
   // height: number;
 
-  public newLabel: Label;
+  // public newLabel: Label;
   // public IMAGE_URL: string = '~/images/project12.jpg';
 
   constructor(private data: OptionsService) {
@@ -36,10 +65,7 @@ export class PuzzComponent implements OnInit {
 
   }
 
-  ttt(e): void {
-    console.dir(e.view.row);
-    e.view.row = 1;
-  }
+
 
   getRands(amt) {
     const nums = new Set();
@@ -75,79 +101,103 @@ export class PuzzComponent implements OnInit {
 
 
 
+
+
   onGridLoad(el): void {
     let grid = <GridLayout>el;
     [el.columns, el.rows] = ['auto,'.repeat(this.size - 1) + 'auto', 'auto,'.repeat(this.size - 1) + 'auto'];
     console.log('auto,'.repeat(this.size - 1) + 'auto');
 
     const width = Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
-    const tileSize = ((width * .98) / this.size);
+    this.tileSize = ((width * .98) / this.size);
 
 
     let doable = this.checkBoard();
     while (this.getInversions(doable[0]) % 2 !== 0) {
       doable = this.checkBoard();
     }
-    console.log(doable);
+    console.log('do', doable);
 
-    const canvArray = [];
+    this.boardOrder = doable[1].slice();
+
+
 
     for (let i = 0; i < this.size; i += 1) {
       for (let j = 0; j < this.size; j += 1) {
-        canvArray.push([j, i]);
+        this.canvArray.push([j, i]);
       }
     }
-    console.log(canvArray);
+    console.log(this.canvArray);
+
+
+
 
     for(let i = 0; i < (this.size * this.size) - 1; i += 1){
       let newLabel = new Label();
       newLabel.style.backgroundImage = this.image._android;
-      newLabel.width = tileSize;
-      newLabel.height = tileSize;
+      newLabel.width = this.tileSize;
+      newLabel.height = this.tileSize;
       // newLabel.stretch = 'aspectFill';
       newLabel.style.backgroundRepeat = 'no-repeat';
       newLabel.style.backgroundSize = `${this.size}00% ${this.size}00%`;
-      newLabel.row = canvArray[doable[1][i]][1];
-      newLabel.col = canvArray[doable[1][i]][0];
-      newLabel.style.backgroundPosition = `${canvArray[i][0] * 100/(this.size - 1)}% ${canvArray[i][1] * 100/(this.size - 1)}%`;
+      newLabel.col = this.canvArray[i][0];
+      newLabel.row = this.canvArray[i][1];
+      newLabel.style.backgroundPosition = `${this.canvArray[doable[1][i]][0] * 100/(this.size - 1)}% ${this.canvArray[doable[1][i]][1] * 100/(this.size - 1)}%`;
+      console.log(newLabel.row, newLabel.col);
+      // this.boardOrder.push(newLabel);
       grid.addChild(newLabel);
 
-      console.log('w', width, 't', tileSize);
-      console.log(`${canvArray[i][0] * 100/(this.size - 1)}% ${canvArray[i][1] * 100/(this.size - 1)}%`);
+      console.log('w', width, 't', this.tileSize);
+      console.log(`${this.canvArray[i][0] * 100/(this.size - 1)}% ${this.canvArray[i][1] * 100/(this.size - 1)}%`);
+
+    }
+
+  }
 
 
 
+    swapTiles(x, y, el) {
 
+      if (this.canvArray.length === 0) { return; }
+      const tileClicked = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
+      console.log('tile', tileClicked);
+      // console.log('board', this.boardOrder[tileClicked].col, this.boardOrder[tileClicked].row);
+      console.log('coords', el.getChildAt(tileClicked).col, el.getChildAt(tileClicked).row);
 
+      const blank = this.boardOrder.indexOf(this.canvArray.length - 1);
+      let finalCheck;
+      const brdInd = this.boardOrder[tileClicked];
+      if (![1, this.size].includes(Math.abs(tileClicked - blank))) {
+        return;
+      }
+      // ctx.clearRect(canvArray[tileClicked][0], canvArray[tileClicked][1], 75, 75);
+      ctx.drawImage(contact, canvArray[brdInd][0], canvArray[brdInd][1], 75, 75,
+        canvArray[blank][0], canvArray[blank][1], 75, 75);
+      [this.boardOrder[tileClicked], this.boardOrder[blank]] = [this.boardOrder[blank], this.boardOrder[tileClicked]];
+      if (this.boardOrder[0] === 0 && this.boardOrder[3] === 3
+        && this.boardOrder[11] === 11 && this.boardOrder[14] === 14) {
+        finalCheck = true;
+        for (let f = 0; f < this.boardOrder.length; f += 1) {
+          if (this.boardOrder[f] !== f) {
+            finalCheck = false;
+            break;
+          }
+        }
+      }
+      if (finalCheck) {
+        faderCanv.style.display = 'block';
+        canvasbutton.style.display = 'none';
+        animateFader();
+        ctx.drawImage(contact, 225, 225, 75, 75,
+          225, 225, 75, 75);
+        canvArray.splice(0);
+      }
     }
 
 
 
 
 
-    // let newLabel2 = new Label();
-    // newLabel2.style.backgroundImage = this.image._android;
-    // newLabel2.width = tileSize;
-    // newLabel2.height = tileSize;
-    // // newLabel2.stretch = 'aspectFill';
-    // newLabel2.style.backgroundRepeat = 'no-repeat';
-    // newLabel2.style.backgroundSize = '200% 200%';
-    // newLabel2.row = 0;
-    // newLabel2.col = 1;
-    // newLabel2.style.backgroundPosition = '100% 0%';
-    // grid.addChild(newLabel2);
-    //
-    // let newLabel3 = new Label();
-    // newLabel3.style.backgroundImage = this.image._android;
-    // newLabel3.width = tileSize;
-    // newLabel3.height = tileSize;
-    // // newLabel3.stretch = 'aspectFill';
-    // newLabel3.style.backgroundRepeat = 'no-repeat';
-    // newLabel3.style.backgroundSize = '200% 200%';
-    // newLabel3.row = 1;
-    // newLabel3.col = 0;
-    // newLabel3.style.backgroundPosition = '0% 100%';
-    // grid.addChild(newLabel3);
 
 
 
@@ -156,14 +206,5 @@ export class PuzzComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-  }
 
 }
