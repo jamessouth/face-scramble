@@ -27,6 +27,8 @@ export class PuzzComponent implements OnInit {
 
   boardOrder: any = [];
 
+  // blankCoords: Array<number> = [];
+
   onTouch(e: TouchGestureEventData) {
       // console.log("Object that triggered the event: " + e.object);
       // console.log("View that triggered the event: " + e.view);
@@ -105,6 +107,7 @@ export class PuzzComponent implements OnInit {
 
   onGridLoad(el): void {
     let grid = <GridLayout>el;
+    // this.blankCoords = [this.size - 1, this.size - 1];
     [el.columns, el.rows] = ['auto,'.repeat(this.size - 1) + 'auto', 'auto,'.repeat(this.size - 1) + 'auto'];
     console.log('auto,'.repeat(this.size - 1) + 'auto');
 
@@ -143,39 +146,93 @@ export class PuzzComponent implements OnInit {
       newLabel.col = this.canvArray[i][0];
       newLabel.row = this.canvArray[i][1];
       newLabel.style.backgroundPosition = `${this.canvArray[doable[1][i]][0] * 100/(this.size - 1)}% ${this.canvArray[doable[1][i]][1] * 100/(this.size - 1)}%`;
-      console.log(newLabel.row, newLabel.col);
+      // console.log(newLabel.row, newLabel.col);
       // this.boardOrder.push(newLabel);
       grid.addChild(newLabel);
 
-      console.log('w', width, 't', this.tileSize);
-      console.log(`${this.canvArray[i][0] * 100/(this.size - 1)}% ${this.canvArray[i][1] * 100/(this.size - 1)}%`);
+      // console.log('w', width, 't', this.tileSize);
+      // console.log(`${this.canvArray[i][0] * 100/(this.size - 1)}% ${this.canvArray[i][1] * 100/(this.size - 1)}%`);
 
     }
+
+    let newLabel = new Label();
+    newLabel.style.backgroundImage = '';
+    newLabel.width = this.tileSize;
+    newLabel.height = this.tileSize;
+
+
+
+    // newLabel.text = 'blank';
+
+    // newLabel.stretch = 'aspectFill';
+    // newLabel.style.backgroundRepeat = 'no-repeat';
+    // newLabel.style.backgroundSize = `${this.size}00% ${this.size}00%`;
+    newLabel.col = this.size - 1;
+    newLabel.row = this.size - 1;
+    // newLabel.style.backgroundPosition = `${this.canvArray[doable[1][i]][0] * 100/(this.size - 1)}% ${this.canvArray[doable[1][i]][1] * 100/(this.size - 1)}%`;
+    // console.log(newLabel.row, newLabel.col);
+    // this.boardOrder.push(newLabel);
+    grid.addChild(newLabel);
+
 
   }
 
 
 
-    swapTiles(x, y, el) {
 
+    swapTiles(x, y, el) {
+      // console.log('---------------------------------------------------------------');
+      // console.log('bo', this.boardOrder);
+      // console.log('start');
+      // for(let i = 0; i < this.canvArray.length; i++){
+      //   console.log(i, el.getChildAt(i).col, el.getChildAt(i).row);
+      // }
+      // console.log('end');
+
+
+      // console.log('blankcoords', this.blankCoords);
       if (this.canvArray.length === 0) { return; }
       const tileClicked = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
       console.log('tile', tileClicked);
       // console.log('board', this.boardOrder[tileClicked].col, this.boardOrder[tileClicked].row);
       console.log('coords', el.getChildAt(tileClicked).col, el.getChildAt(tileClicked).row);
-
+      // console.log('bo', this.boardOrder);
       const blank = this.boardOrder.indexOf(this.canvArray.length - 1);
       let finalCheck;
       const brdInd = this.boardOrder[tileClicked];
-      if (![1, this.size].includes(Math.abs(tileClicked - blank))) {
+
+      console.log('nums', blank, brdInd);
+      // console.log('bo', this.boardOrder);
+
+      const tilePos = Math.abs(tileClicked - blank);
+
+      if (tilePos !== 1 && tilePos !== this.size){
         return;
       }
-      // ctx.clearRect(canvArray[tileClicked][0], canvArray[tileClicked][1], 75, 75);
-      ctx.drawImage(contact, canvArray[brdInd][0], canvArray[brdInd][1], 75, 75,
-        canvArray[blank][0], canvArray[blank][1], 75, 75);
+
+      el.getChildAt(tileClicked).style.backgroundImage = '';
+
+      // el.getChildAt(tileClicked).style.backgroundImage = '';
+      el.getChildAt(blank).style.backgroundImage = this.image._android;
+      el.getChildAt(blank).style.backgroundSize = `${this.size}00% ${this.size}00%`;
+      el.getChildAt(blank).style.backgroundPosition = `${this.canvArray[brdInd][0] * 100/(this.size - 1)}% ${this.canvArray[brdInd][1] * 100/(this.size - 1)}%`;
+
+
+      console.log('bo', this.boardOrder);
+
+
+
       [this.boardOrder[tileClicked], this.boardOrder[blank]] = [this.boardOrder[blank], this.boardOrder[tileClicked]];
-      if (this.boardOrder[0] === 0 && this.boardOrder[3] === 3
-        && this.boardOrder[11] === 11 && this.boardOrder[14] === 14) {
+
+
+
+
+
+      if (this.boardOrder[0] === 0
+        && this.boardOrder[this.size - 1] === this.size - 1
+        && this.boardOrder[this.size * (this.size - 1) - 1] === this.size * (this.size - 1) - 1
+        && this.boardOrder[this.size * this.size - 2] === this.size * this.size - 2
+      ) {
         finalCheck = true;
         for (let f = 0; f < this.boardOrder.length; f += 1) {
           if (this.boardOrder[f] !== f) {
@@ -185,12 +242,15 @@ export class PuzzComponent implements OnInit {
         }
       }
       if (finalCheck) {
-        faderCanv.style.display = 'block';
-        canvasbutton.style.display = 'none';
-        animateFader();
-        ctx.drawImage(contact, 225, 225, 75, 75,
-          225, 225, 75, 75);
-        canvArray.splice(0);
+        // faderCanv.style.display = 'block';
+        // canvasbutton.style.display = 'none';
+        // animateFader();
+        // ctx.drawImage(contact, 225, 225, 75, 75,
+          // 225, 225, 75, 75);
+        el.getChildAt(this.canvArray.length - 1).style.backgroundImage = this.image._android;
+        el.getChildAt(this.canvArray.length - 1).style.backgroundSize = `${this.size}00% ${this.size}00%`;
+        el.getChildAt(this.canvArray.length - 1).style.backgroundPosition = `${this.canvArray[this.canvArray.length - 1][0] * 100/(this.size - 1)}% ${this.canvArray[this.canvArray.length - 1][1] * 100/(this.size - 1)}%`;
+        this.canvArray.splice(0);
       }
     }
 
