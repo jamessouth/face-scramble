@@ -1,21 +1,9 @@
-GridLayout Label{
-  /* width: 50;
-  height: 50; */
-  /* background-size: contain; */
+FlexboxLayout Label{
+  font-size: 22;
+  font-weight: bold;
 }
-GridLayout{
-  /* background-color: #111111; */
-  /* width: 100; */
-}
-/* .one{
-  background-color: #ff0000;
-}
-.one2{
-  background-color: #00ff00;
-}
-.one3{
-  background-color: #0000ff;
-} */
+
+
 FlexboxLayout{
   flex-direction: column;
   justify-content: space-around;

@@ -23,17 +23,11 @@
       </StackLayout>
     </StackLayout>
     <StackLayout class="bord m-b-30">
-      <!-- <StackLayout class="m-b-10">
-        <Label class="m-t-10 text-center" [text]="'Width in Tiles: ' + width"></Label>
-        <Slider class="slider" value="2" (valueChange)="onWidthSliderChange($event)" minValue="2" maxValue="10"></Slider>
-      </StackLayout> -->
       <StackLayout class="m-b-20">
-        <Label class="text-center" [text]="'Size in Tiles: ' + size"></Label>
+        <Label class="text-center" [text]="'Puzzle Dimensions: ' + size + ' x ' + size"></Label>
         <Slider class="slider" value="2" (valueChange)="onSizeSliderChange($event)" minValue="2" maxValue="10"></Slider>
       </StackLayout>
-
     </StackLayout>
-
     <Button class="btn btn-primary btn-rounded-sm btn-active" text="Next >" [nsRouterLink]="['/choose']"></Button>
   </FlexboxLayout>
 </ScrollView>

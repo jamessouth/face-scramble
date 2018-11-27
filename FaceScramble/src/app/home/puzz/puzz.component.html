@@ -1,13 +1,13 @@
 <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Puzzle s {{size}} c {{color}}"></Label>
+    <Label class="action-bar-title" text="Puzzle"></Label>
 </ActionBar>
 
-<FlexboxLayout>
-  <Label text="{{image._android}}"></Label>
-  <GridLayout #grid (loaded)="onGridLoad(grid)" (touch)="onTouch($event)" backgroundColor="{{color}}">
+<ScrollView>
+  <FlexboxLayout class="page">
+    <Label class="m-t-30" text="Taps: {{taps}}"></Label>
+    <GridLayout class="m-t-30 m-b-30" #grid (loaded)="onGridLoad(grid)" (touch)="onTouch($event)" backgroundColor="{{color}}">
 
+    </GridLayout>
 
-
-  </GridLayout>
-
-</FlexboxLayout>
+  </FlexboxLayout>
+</ScrollView>

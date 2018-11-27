@@ -18,21 +18,20 @@ export class PuzzComponent implements OnInit {
   size: number;
   image: any;
 
-
+  public taps: number = 0;
   public coordX: number = 0;
   public coordY: number = 0;
   public tileSize: number = 0;
 
-  canvArray: any = [];
+  canvArray: Array<any> = [];
 
-  boardOrder: any = [];
+  boardOrder: Array<number> = [];
 
-  // blankCoords: Array<number> = [];
+
 
   onTouch(e: TouchGestureEventData) {
       // console.log("Object that triggered the event: " + e.object);
       // console.log("View that triggered the event: " + e.view);
-      // console.log("Event name: " + e.eventName);
       // console.log("Touch action (up, down, cancel or move)" + e.action);
       // console.log("Touch point: [" + e.getX() + ", " + e.getY() + "]");
       // console.log("activePointers: " + e.getActivePointers().length);
@@ -41,6 +40,7 @@ export class PuzzComponent implements OnInit {
         this.coordY = e.getY();
         console.log(this.coordX, this.coordY);
         this.swapTiles(this.coordX, this.coordY, e.view);
+
       }
 
       // console.log();
@@ -190,8 +190,10 @@ export class PuzzComponent implements OnInit {
       // console.log('end');
 
 
+
       // console.log('blankcoords', this.blankCoords);
       if (this.canvArray.length === 0) { return; }
+      this.taps += 1;
       const tileClicked = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
       console.log('tile', tileClicked);
       // console.log('board', this.boardOrder[tileClicked].col, this.boardOrder[tileClicked].row);
@@ -223,7 +225,6 @@ export class PuzzComponent implements OnInit {
 
 
       [this.boardOrder[tileClicked], this.boardOrder[blank]] = [this.boardOrder[blank], this.boardOrder[tileClicked]];
-
 
 
 
