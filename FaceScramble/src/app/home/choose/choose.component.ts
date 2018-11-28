@@ -44,10 +44,14 @@ export class ChooseComponent implements OnInit {
     })
     .then((selection) => {
         console.log("Selection done: " + JSON.stringify(selection));
+        console.dir(selection);
+
         that.imageSrc = selection.length > 0 ? selection[0] : null;
+        console.dir(this.imageSrc);
+        // console.dir();
 
         this.data.changeImage(this.imageSrc);
-        console.log('imagesrc', fromFile(this.imageSrc._android).width);
+        // console.log('imagesrc', fromFile(this.imageSrc._android).width);
         console.log();
         console.log('this', this.image);
 

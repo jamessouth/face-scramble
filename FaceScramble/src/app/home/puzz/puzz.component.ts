@@ -29,15 +29,15 @@ export class PuzzComponent implements OnInit {
 
 
 
-  onTouch(e: TouchGestureEventData) {
+  onTouch(e: TouchGestureEventData): void {
       // console.log("Object that triggered the event: " + e.object);
       // console.log("View that triggered the event: " + e.view);
       // console.log("Touch action (up, down, cancel or move)" + e.action);
       // console.log("Touch point: [" + e.getX() + ", " + e.getY() + "]");
       // console.log("activePointers: " + e.getActivePointers().length);
       if(e && e.action === 'down'){
-        this.coordX = e.getX();
-        this.coordY = e.getY();
+        this.coordX: number = e.getX();
+        this.coordY: number = e.getY();
         console.log(this.coordX, this.coordY);
         this.swapTiles(this.coordX, this.coordY, e.view);
 
@@ -69,26 +69,26 @@ export class PuzzComponent implements OnInit {
 
 
 
-  getRands(amt) {
+  getRands(amt: number): Array<number> {
     const nums = new Set();
     while (nums.size < amt) {
-      const n = Math.floor(Math.random() * amt);
+      const n: number = Math.floor(Math.random() * amt);
       nums.add(n);
     }
     return Array.from(nums);
   }
 
   checkBoard() {
-    const randos = this.getRands(this.size * this.size - 1);
-    const solArray = [];
+    const randos: Array<number> = this.getRands(this.size * this.size - 1);
+    const solArray: Array<number> = [];
     randos.forEach((x, i) => {
       solArray[x] = i;
     });
     return [solArray.concat([this.size * this.size - 1]), randos.concat([this.size * this.size - 1])];
   }
 
-  getInversions(arr) {
-    let inversions = 0;
+  getInversions(arr: Array<number>): number {
+    let inversions: number = 0;
     for (let i = 0; i < arr.length; i += 1) {
       if (arr[i] == null) { continue; }
       for (let j = 0; j < arr.length; j += 1) {
@@ -111,7 +111,7 @@ export class PuzzComponent implements OnInit {
     [el.columns, el.rows] = ['auto,'.repeat(this.size - 1) + 'auto', 'auto,'.repeat(this.size - 1) + 'auto'];
     console.log('auto,'.repeat(this.size - 1) + 'auto');
 
-    const width = Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
+    const width: number = Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
     this.tileSize = ((width * .98) / this.size);
 
 
@@ -135,6 +135,7 @@ export class PuzzComponent implements OnInit {
 
 
 
+
     for(let i = 0; i < (this.size * this.size) - 1; i += 1){
       let newLabel = new Label();
       newLabel.style.backgroundImage = this.image._android;
@@ -153,6 +154,7 @@ export class PuzzComponent implements OnInit {
       // console.log('w', width, 't', this.tileSize);
       // console.log(`${this.canvArray[i][0] * 100/(this.size - 1)}% ${this.canvArray[i][1] * 100/(this.size - 1)}%`);
 
+
     }
 
     let newLabel = new Label();
@@ -162,16 +164,10 @@ export class PuzzComponent implements OnInit {
 
 
 
-    // newLabel.text = 'blank';
-
-    // newLabel.stretch = 'aspectFill';
-    // newLabel.style.backgroundRepeat = 'no-repeat';
-    // newLabel.style.backgroundSize = `${this.size}00% ${this.size}00%`;
     newLabel.col = this.size - 1;
     newLabel.row = this.size - 1;
-    // newLabel.style.backgroundPosition = `${this.canvArray[doable[1][i]][0] * 100/(this.size - 1)}% ${this.canvArray[doable[1][i]][1] * 100/(this.size - 1)}%`;
-    // console.log(newLabel.row, newLabel.col);
-    // this.boardOrder.push(newLabel);
+
+
     grid.addChild(newLabel);
 
 
@@ -180,30 +176,19 @@ export class PuzzComponent implements OnInit {
 
 
 
-    swapTiles(x, y, el) {
-      // console.log('---------------------------------------------------------------');
-      // console.log('bo', this.boardOrder);
-      // console.log('start');
-      // for(let i = 0; i < this.canvArray.length; i++){
-      //   console.log(i, el.getChildAt(i).col, el.getChildAt(i).row);
-      // }
-      // console.log('end');
+    swapTiles(x: number, y: number, el): void {
 
 
-
-      // console.log('blankcoords', this.blankCoords);
       if (this.canvArray.length === 0) { return; }
       this.taps += 1;
       const tileClicked = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
-      console.log('tile', tileClicked);
-      // console.log('board', this.boardOrder[tileClicked].col, this.boardOrder[tileClicked].row);
-      console.log('coords', el.getChildAt(tileClicked).col, el.getChildAt(tileClicked).row);
-      // console.log('bo', this.boardOrder);
+
+
       const blank = this.boardOrder.indexOf(this.canvArray.length - 1);
       let finalCheck;
       const brdInd = this.boardOrder[tileClicked];
 
-      console.log('nums', blank, brdInd);
+      // console.log('nums', blank, brdInd);
       // console.log('bo', this.boardOrder);
 
       const tilePos = Math.abs(tileClicked - blank);
@@ -220,7 +205,7 @@ export class PuzzComponent implements OnInit {
       el.getChildAt(blank).style.backgroundPosition = `${this.canvArray[brdInd][0] * 100/(this.size - 1)}% ${this.canvArray[brdInd][1] * 100/(this.size - 1)}%`;
 
 
-      console.log('bo', this.boardOrder);
+      // console.log('bo', this.boardOrder);
 
 
 
@@ -254,16 +239,6 @@ export class PuzzComponent implements OnInit {
         this.canvArray.splice(0);
       }
     }
-
-
-
-
-
-
-
-
-
-
 
 
 
