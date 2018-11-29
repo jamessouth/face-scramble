@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Image } from "tns-core-modules/ui/image";
 
 @Injectable()
 export class OptionsService {
@@ -7,7 +8,7 @@ export class OptionsService {
   // Observable string sources
   private defaultColor = new BehaviorSubject('#000000');
   private defaultSize = new BehaviorSubject(2);
-  private defaultImage = new BehaviorSubject({});
+  private defaultImage = new BehaviorSubject(new Image());
   // private defaultWidth = new BehaviorSubject(2);
   // private defaultHeight = new BehaviorSubject(2);
   // private missionConfirmedSource = new Subject<string>();
@@ -25,13 +26,13 @@ export class OptionsService {
   //   this.missionAnnouncedSource.next(mission);
   // }
 
-  changeColor(color: string) {
+  changeColor(color: string): void {
     this.defaultColor.next(color);
   }
-  changeSize(size: number) {
+  changeSize(size: number): void {
     this.defaultSize.next(size);
   }
-  changeImage(image: any) {
+  changeImage(image: Image): void {
     this.defaultImage.next(image);
   }
   // changeWidth(width: number) {

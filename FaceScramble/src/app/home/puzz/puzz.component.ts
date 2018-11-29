@@ -6,7 +6,7 @@ import { GestureEventData, TouchGestureEventData } from "tns-core-modules/ui/ges
 import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { Label } from "tns-core-modules/ui/label";
 import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
-
+import { Image } from "tns-core-modules/ui/image";
 
 @Component({
   selector: "Puzz",
@@ -16,7 +16,7 @@ import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
 export class PuzzComponent implements OnInit {
   color: string;
   size: number;
-  image: any;
+  image: Image;
 
   public taps: number = 0;
   public coordX: number = 0;
@@ -36,8 +36,8 @@ export class PuzzComponent implements OnInit {
       // console.log("Touch point: [" + e.getX() + ", " + e.getY() + "]");
       // console.log("activePointers: " + e.getActivePointers().length);
       if(e && e.action === 'down'){
-        this.coordX: number = e.getX();
-        this.coordY: number = e.getY();
+        this.coordX = e.getX();
+        this.coordY = e.getY();
         console.log(this.coordX, this.coordY);
         this.swapTiles(this.coordX, this.coordY, e.view);
 
@@ -103,13 +103,11 @@ export class PuzzComponent implements OnInit {
 
 
 
-
-
   onGridLoad(el): void {
     let grid = <GridLayout>el;
     // this.blankCoords = [this.size - 1, this.size - 1];
     [el.columns, el.rows] = ['auto,'.repeat(this.size - 1) + 'auto', 'auto,'.repeat(this.size - 1) + 'auto'];
-    console.log('auto,'.repeat(this.size - 1) + 'auto');
+    // console.log('auto,'.repeat(this.size - 1) + 'auto');
 
     const width: number = Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
     this.tileSize = ((width * .98) / this.size);
@@ -119,26 +117,30 @@ export class PuzzComponent implements OnInit {
     while (this.getInversions(doable[0]) % 2 !== 0) {
       doable = this.checkBoard();
     }
-    console.log('do', doable);
+    // console.log('do', doable);
 
     this.boardOrder = doable[1].slice();
-
-
-
+    // console.log();
+    // console.log('src', this.image.src);
+    // console.log();
     for (let i = 0; i < this.size; i += 1) {
       for (let j = 0; j < this.size; j += 1) {
         this.canvArray.push([j, i]);
       }
     }
-    console.log(this.canvArray);
+    // console.log(this.canvArray);
 
+    console.log();
+    // if(isIOS){
+    //   console.log('androiddddddddddddddddddddd');
+    // }
 
-
+    console.dir(this.image.src);
 
 
     for(let i = 0; i < (this.size * this.size) - 1; i += 1){
       let newLabel = new Label();
-      newLabel.style.backgroundImage = this.image._android;
+      newLabel.style.backgroundImage = this.image.src;
       newLabel.width = this.tileSize;
       newLabel.height = this.tileSize;
       // newLabel.stretch = 'aspectFill';
@@ -181,17 +183,18 @@ export class PuzzComponent implements OnInit {
 
       if (this.canvArray.length === 0) { return; }
       this.taps += 1;
-      const tileClicked = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
+      const tileClicked: number = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
 
 
-      const blank = this.boardOrder.indexOf(this.canvArray.length - 1);
-      let finalCheck;
-      const brdInd = this.boardOrder[tileClicked];
+      const blank: number = this.boardOrder.indexOf(this.canvArray.length - 1);
+      let finalCheck: boolean = false;
+      const brdInd: number = this.boardOrder[tileClicked];
 
       // console.log('nums', blank, brdInd);
       // console.log('bo', this.boardOrder);
 
-      const tilePos = Math.abs(tileClicked - blank);
+
+      const tilePos: number = Math.abs(tileClicked - blank);
 
       if (tilePos !== 1 && tilePos !== this.size){
         return;
@@ -200,7 +203,7 @@ export class PuzzComponent implements OnInit {
       el.getChildAt(tileClicked).style.backgroundImage = '';
 
       // el.getChildAt(tileClicked).style.backgroundImage = '';
-      el.getChildAt(blank).style.backgroundImage = this.image._android;
+      el.getChildAt(blank).style.backgroundImage = this.image.src;
       el.getChildAt(blank).style.backgroundSize = `${this.size}00% ${this.size}00%`;
       el.getChildAt(blank).style.backgroundPosition = `${this.canvArray[brdInd][0] * 100/(this.size - 1)}% ${this.canvArray[brdInd][1] * 100/(this.size - 1)}%`;
 
@@ -233,7 +236,7 @@ export class PuzzComponent implements OnInit {
         // animateFader();
         // ctx.drawImage(contact, 225, 225, 75, 75,
           // 225, 225, 75, 75);
-        el.getChildAt(this.canvArray.length - 1).style.backgroundImage = this.image._android;
+        el.getChildAt(this.canvArray.length - 1).style.backgroundImage = this.image.src;
         el.getChildAt(this.canvArray.length - 1).style.backgroundSize = `${this.size}00% ${this.size}00%`;
         el.getChildAt(this.canvArray.length - 1).style.backgroundPosition = `${this.canvArray[this.canvArray.length - 1][0] * 100/(this.size - 1)}% ${this.canvArray[this.canvArray.length - 1][1] * 100/(this.size - 1)}%`;
         this.canvArray.splice(0);

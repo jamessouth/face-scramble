@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { OptionsService } from '../options.service';
 import * as imagepicker from "nativescript-imagepicker";
-import { ImageSource, fromFile } from "image-source";
+// import { ImageSource, fromFile } from "image-source";
+
+import { Image } from "tns-core-modules/ui/image";
 
 @Component({
   selector: "Choose",
@@ -10,8 +12,9 @@ import { ImageSource, fromFile } from "image-source";
 })
 
 export class ChooseComponent implements OnInit {
-  imageSrc: any;
-  image: any;
+  // imageSrc: any;
+  image: Image;
+
 
 
   constructor(private data: OptionsService) {
@@ -33,27 +36,28 @@ export class ChooseComponent implements OnInit {
   }
 
   private startSelection(context) {
-    let that = this;
+    // let that = this;
 
     context
     .authorize()
     .then(() => {
 
-        that.imageSrc = null;
+        // this.imageSrc = null;
         return context.present();
     })
     .then((selection) => {
-        console.log("Selection done: " + JSON.stringify(selection));
-        console.dir(selection);
-
-        that.imageSrc = selection.length > 0 ? selection[0] : null;
-        console.dir(this.imageSrc);
+        // console.log("Selection done: " + JSON.stringify(selection));
+        // console.dir(selection);
+        let img = new Image();
+        img.src = selection[0];
+        // this.imageSrc = selection.length > 0 ?  : null;
+        // console.dir(this.imageSrc);
         // console.dir();
 
-        this.data.changeImage(this.imageSrc);
+        this.data.changeImage(img);
         // console.log('imagesrc', fromFile(this.imageSrc._android).width);
-        console.log();
-        console.log('this', this.image);
+        // console.log();
+        // console.log('this', this.image);
 
     }).catch(function (e) {
         console.log(e);
