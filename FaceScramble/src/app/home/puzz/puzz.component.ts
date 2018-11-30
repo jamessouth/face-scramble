@@ -27,7 +27,7 @@ export class PuzzComponent implements OnInit {
 
   boardOrder: Array<number> = [];
 
-
+  gameOver: boolean = false;
 
   onTouch(e: TouchGestureEventData): void {
       // console.log("Object that triggered the event: " + e.object);
@@ -183,6 +183,7 @@ export class PuzzComponent implements OnInit {
 
       if (this.canvArray.length === 0) { return; }
       this.taps += 1;
+      console.log(this.taps);
       const tileClicked: number = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
 
 
@@ -240,6 +241,7 @@ export class PuzzComponent implements OnInit {
         el.getChildAt(this.canvArray.length - 1).style.backgroundSize = `${this.size}00% ${this.size}00%`;
         el.getChildAt(this.canvArray.length - 1).style.backgroundPosition = `${this.canvArray[this.canvArray.length - 1][0] * 100/(this.size - 1)}% ${this.canvArray[this.canvArray.length - 1][1] * 100/(this.size - 1)}%`;
         this.canvArray.splice(0);
+        this.gameOver = true;
       }
     }
 

@@ -5,11 +5,10 @@
 <ScrollView>
   <FlexboxLayout class="page">
     <StackLayout>
-      <Label class="m-t-10 m-b-20" textWrap="true"></Label>
       <Button class="picbtn btn btn-primary btn-rounded-sm btn-active" text="Choose Photo" (tap)="onChoosePhoto()"></Button>
 
       <FlexboxLayout *ngIf="image.src" class="img m-b-30">
-        <Image width="300" height="300" [src]="image.src"></Image>
+        <Image [width]="width" [height]="width" [src]="image.src"></Image>
       </FlexboxLayout>
 
 
