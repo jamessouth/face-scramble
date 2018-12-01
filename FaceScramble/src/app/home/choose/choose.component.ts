@@ -23,12 +23,21 @@ export class ChooseComponent implements OnInit {
       // Use the component constructor to inject providers.
   }
 
+
+
+
+
+
+
+
+
+
   ngOnInit(): void {
     this.data.currentImage$.subscribe(image => this.image = image);
     // this.data.currentWidth$.subscribe(width => this.width = width);
     // this.data.currentHeight$.subscribe(height => this.height = height);
       // Init your component properties here.
-    this.width = Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
+    this.width = isAndroid ? .9 * Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs) : Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
     // console.log(Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs));
   }
 

@@ -14,3 +14,14 @@ FlexboxLayout{
   justify-content: space-around;
   align-items: center;
 }
+.btn{
+  background-color: #880d1e;
+  color: #eee0cb;
+  font-size: 18;
+  margin-bottom: 55;
+  /* width: 80%; */
+}
+.picbtn{
+  width: 80%;
+  /* background-color: #2274a5; */
+}
