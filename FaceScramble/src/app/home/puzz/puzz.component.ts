@@ -7,6 +7,11 @@ import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { Label } from "tns-core-modules/ui/label";
 import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
 import { Image } from "tns-core-modules/ui/image";
+import { Router } from "@angular/router";
+import { NativeScriptRouterModule } from "nativescript-angular/router";
+
+
+
 
 @Component({
   selector: "Puzz",
@@ -18,7 +23,7 @@ export class PuzzComponent implements OnInit {
   size: number;
   image: Image;
 
-  public taps: number = 0;
+  public moves: number = 0;
   public coordX: number = 0;
   public coordY: number = 0;
   public tileSize: number = 0;
@@ -30,34 +35,25 @@ export class PuzzComponent implements OnInit {
   gameOver: boolean = false;
 
   onTouch(e: TouchGestureEventData): void {
-      // console.log("Object that triggered the event: " + e.object);
-      // console.log("View that triggered the event: " + e.view);
-      // console.log("Touch action (up, down, cancel or move)" + e.action);
-      // console.log("Touch point: [" + e.getX() + ", " + e.getY() + "]");
-      // console.log("activePointers: " + e.getActivePointers().length);
-      if(e && e.action === 'down'){
-        this.coordX = e.getX();
-        this.coordY = e.getY();
-        // console.log(this.coordX, this.coordY);
-        this.swapTiles(this.coordX, this.coordY, e.view);
 
-      }
+    if(e && e.action === 'down'){
+      this.coordX = e.getX();
+      this.coordY = e.getY();
+      // console.log(this.coordX, this.coordY);
+      this.swapTiles(this.coordX, this.coordY, e.view);
 
+    }
 
+  }
 
-
-      // console.log();
-      // console.dir(args);
+  onPlayAgain(): void {
+    console.log('here');
+    this.router.navigate(['/opts']);
   }
 
 
-  // width: number;
-  // height: number;
 
-  // public newLabel: Label;
-  // public IMAGE_URL: string = '~/images/project12.jpg';
-
-  constructor(private data: OptionsService) {
+  constructor(private data: OptionsService, private router: Router) {
       // Use the component constructor to inject providers.
   }
 
@@ -185,24 +181,42 @@ export class PuzzComponent implements OnInit {
 
 
       if (this.canvArray.length === 0) { return; }
-      this.taps += 1;
-      // console.log(this.taps);
+
+
       const tileClicked: number = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
 
 
       const blank: number = this.boardOrder.indexOf(this.canvArray.length - 1);
-      let finalCheck: boolean = false;
-      const brdInd: number = this.boardOrder[tileClicked];
+
+
 
       // console.log('nums', blank, brdInd);
       // console.log('bo', this.boardOrder);
 
 
-      const tilePos: number = Math.abs(tileClicked - blank);
+      const tilePos: number = tileClicked - blank;
 
-      if (tilePos !== 1 && tilePos !== this.size){
-        return;
-      }
+
+
+      if (blank % this.size === 0) {
+        if (tilePos !== -this.size && tilePos !== 1 && tilePos !== this.size){
+          return;
+        }
+	    } else if ((blank + 1) % this.size === 0) {
+        if (tilePos !== -this.size && tilePos !== -1 && tilePos !== this.size){
+          return;
+        }
+	    } else {
+        if (Math.abs(tilePos) !== 1 && Math.abs(tilePos) !== this.size){
+          return;
+        }
+	    }
+
+
+
+      const brdInd: number = this.boardOrder[tileClicked];
+
+      this.moves += 1;
 
       el.getChildAt(tileClicked).style.backgroundImage = '';
 
@@ -219,7 +233,7 @@ export class PuzzComponent implements OnInit {
       [this.boardOrder[tileClicked], this.boardOrder[blank]] = [this.boardOrder[blank], this.boardOrder[tileClicked]];
 
 
-
+      let finalCheck: boolean = false;
 
       if (this.boardOrder[0] === 0
         && this.boardOrder[this.size - 1] === this.size - 1
