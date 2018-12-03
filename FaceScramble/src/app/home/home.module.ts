@@ -7,6 +7,7 @@ import { OptsComponent } from "./opts/opts.component";
 import { ChooseComponent } from "./choose/choose.component";
 import { EditComponent } from "./edit/edit.component";
 import { PuzzComponent } from "./puzz/puzz.component";
+import { ModalComponent } from "./modal/modal.component";
 import { OptionsService } from './options.service';
 
 @NgModule({
@@ -22,10 +23,14 @@ import { OptionsService } from './options.service';
         OptsComponent,
         ChooseComponent,
         EditComponent,
-        PuzzComponent
+        PuzzComponent,
+        ModalComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
+    ],
+    entryComponents: [
+        ModalComponent
     ]
 })
 export class HomeModule { }

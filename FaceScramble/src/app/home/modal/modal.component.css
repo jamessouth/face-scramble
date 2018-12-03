@@ -1,0 +1,14 @@
+
+FlexboxLayout{
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: "#ff00dd";
+  width: 90%;
+}
+
+
+Image{
+  width: 80%;
+  /* padding: 10; */
+}

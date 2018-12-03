@@ -1,14 +1,14 @@
 <ActionBar class="action-bar">
     <Label class="action-bar-title" text="Puzzle"></Label>
 </ActionBar>
-<!-- [ngClass]="{'m-b-30': gameOver}" -->
+
 <ScrollView>
   <FlexboxLayout class="page">
-    <Label width="300" class="text-center m-t-30" text="Moves: {{moves}}"></Label>
+    <Label width="300" class="text-center" text="Moves: {{moves}}"></Label>
 
     <GridLayout class="m-t-30 m-b-30" #grid (loaded)="onGridLoad(grid)" (touch)="onTouch($event)" backgroundColor="{{color}}"></GridLayout>
 
-    <Button *ngIf="gameOver" class="picbtn btn btn-primary btn-rounded-sm btn-active" text="Play Again!" (tap)="onPlayAgain()"></Button>
+    <Button class="picbtn btn btn-primary btn-rounded-sm btn-active" [text]="gameOver ? 'play again!' : 'hint'" (tap)="tapHandler()"></Button>
 
   </FlexboxLayout>
 </ScrollView>

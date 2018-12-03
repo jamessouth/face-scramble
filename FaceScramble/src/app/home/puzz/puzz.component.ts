@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { OptionsService } from '../options.service';
 import { GestureEventData, TouchGestureEventData } from "tns-core-modules/ui/gestures";
 // import { Image } from "tns-core-modules/ui/image";
@@ -7,14 +7,17 @@ import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { Label } from "tns-core-modules/ui/label";
 import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
 import { Image } from "tns-core-modules/ui/image";
-import { Router } from "@angular/router";
-import { NativeScriptRouterModule } from "nativescript-angular/router";
+// import { Router } from "@angular/router";
+// import { NativeScriptRouterModule } from "nativescript-angular/router";
+import { RouterExtensions } from "nativescript-angular/router";
+import { AnimationCurve } from "tns-core-modules/ui/enums";
+import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
 
-
-
+import { ModalComponent } from "../modal/modal.component";
 
 @Component({
   selector: "Puzz",
+  providers: [ModalDialogService],
   templateUrl: "./app/home/puzz/puzz.component.html",
   styleUrls: ["./app/home/puzz/puzz.component.css"]
 })
@@ -48,12 +51,56 @@ export class PuzzComponent implements OnInit {
 
   onPlayAgain(): void {
     console.log('here');
-    this.router.navigate(['/opts']);
+    this.data.changeSize(2);
+    this.data.changeColor('#000000');
+    this.routerExtensions.navigate(['/opts'], {
+      clearHistory: true,
+      transition: {
+            name: "slideRight",
+            duration: 900,
+            curve: AnimationCurve.cubicBezier(.1, .84, .55, .96)
+        }
+    });
+  }
+
+  onHint(): void {
+    console.log('hint');
+    this.showModal();
+  }
+
+  tapHandler(): void {
+    this.gameOver ? this.onPlayAgain() : this.onHint();
+  }
+
+  showModal() {
+      const options: ModalDialogOptions = {
+          viewContainerRef: this.viewContainerRef,
+          fullscreen: false,
+          context: {}
+      };
+      this.modalService.showModal(ModalComponent, options);
   }
 
 
 
-  constructor(private data: OptionsService, private router: Router) {
+
+
+
+
+
+
+
+
+
+
+
+
+  constructor(
+    private data: OptionsService,
+    private routerExtensions: RouterExtensions,
+    private modalService: ModalDialogService,
+    private viewContainerRef: ViewContainerRef
+  ) {
       // Use the component constructor to inject providers.
   }
 
