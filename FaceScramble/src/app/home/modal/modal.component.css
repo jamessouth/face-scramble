@@ -1,14 +1,14 @@
 
-FlexboxLayout{
-  flex-direction: column;
+StackLayout{
+  /* flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: "#ff00dd";
-  width: 90%;
+  background-color: #ff00dd;
+  width: 90%; */
 }
 
 
 Image{
-  width: 80%;
+  /* width: 80%; */
   /* padding: 10; */
 }

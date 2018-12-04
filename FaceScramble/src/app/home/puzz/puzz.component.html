@@ -1,10 +1,12 @@
 <ActionBar class="action-bar">
-    <Label class="action-bar-title" text="Puzzle"></Label>
+    <Label class="action-bar-title" [text]="gameOver ? 'YOU WIN!!!' : 'Puzzle'"></Label>
 </ActionBar>
 
 <ScrollView>
   <FlexboxLayout class="page">
-    <Label width="300" class="text-center" text="Moves: {{moves}}"></Label>
+    <Label width="300" class="moves text-center" text="Moves: {{moves}}"></Label>
+
+    <Label *ngIf="gameOver" #win class="win" text="you win!" (loaded)="onWin(win)"></Label>
 
     <GridLayout class="m-t-30 m-b-30" #grid (loaded)="onGridLoad(grid)" (touch)="onTouch($event)" backgroundColor="{{color}}"></GridLayout>
 

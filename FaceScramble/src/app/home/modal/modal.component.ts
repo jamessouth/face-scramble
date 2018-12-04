@@ -13,10 +13,11 @@ export class ModalComponent implements OnInit {
     constructor(private params: ModalDialogParams, private data: OptionsService) {}
 
     ngOnInit(): void {
+      setTimeout(() => {this.close()}, 3000);
       this.data.currentImage$.subscribe(image => this.image = image);
     }
 
-    close() {
+    close(): void {
         this.params.closeCallback();
     }
 }

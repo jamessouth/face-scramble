@@ -12,6 +12,7 @@ import { Image } from "tns-core-modules/ui/image";
 import { RouterExtensions } from "nativescript-angular/router";
 import { AnimationCurve } from "tns-core-modules/ui/enums";
 import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
+import { Animation } from "tns-core-modules/ui/animation";
 
 import { ModalComponent } from "../modal/modal.component";
 
@@ -86,15 +87,6 @@ export class PuzzComponent implements OnInit {
 
 
 
-
-
-
-
-
-
-
-
-
   constructor(
     private data: OptionsService,
     private routerExtensions: RouterExtensions,
@@ -146,7 +138,19 @@ export class PuzzComponent implements OnInit {
     return inversions;
   }
 
+  onWin(el): void {
+    let win = <Label>el;
 
+    win.animate({
+        translate: { x: 0, y: 100 },
+        opacity: 1,
+        duration: 3000
+    });
+
+
+
+
+  }
 
 
   onGridLoad(el): void {
