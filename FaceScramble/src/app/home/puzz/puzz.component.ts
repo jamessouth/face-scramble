@@ -26,6 +26,7 @@ export class PuzzComponent implements OnInit {
   color: string;
   size: number;
   image: Image;
+  abtitle: Label;
 
   public moves: number = 0;
   public coordX: number = 0;
@@ -138,13 +139,17 @@ export class PuzzComponent implements OnInit {
     return inversions;
   }
 
-  onWin(el): void {
-    let win = <Label>el;
+  onLoadTitle(el): void {
+    this.abtitle = el;
+  }
 
-    win.animate({
-        translate: { x: 0, y: 100 },
-        opacity: 1,
-        duration: 3000
+  onWin(el): void {
+
+
+    el.animate({
+        opacity: 0,
+        duration: 1000,
+
     });
 
 
@@ -300,16 +305,18 @@ export class PuzzComponent implements OnInit {
         }
       }
       if (finalCheck) {
-        // faderCanv.style.display = 'block';
-        // canvasbutton.style.display = 'none';
-        // animateFader();
-        // ctx.drawImage(contact, 225, 225, 75, 75,
-          // 225, 225, 75, 75);
+
+
+
+
+
+
         el.getChildAt(this.canvArray.length - 1).style.backgroundImage = isAndroid ? this.image.src._android : this.image.src;
         el.getChildAt(this.canvArray.length - 1).style.backgroundSize = `${this.size}00% ${this.size}00%`;
         el.getChildAt(this.canvArray.length - 1).style.backgroundPosition = `${this.canvArray[this.canvArray.length - 1][0] * 100/(this.size - 1)}% ${this.canvArray[this.canvArray.length - 1][1] * 100/(this.size - 1)}%`;
         this.canvArray.splice(0);
         this.gameOver = true;
+        this.onWin(this.abtitle);
       }
     }
 

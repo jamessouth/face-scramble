@@ -6,11 +6,19 @@
   margin-top: 55;
 
 }
-.win{
-  font-size: 40;
-  opacity: 0;
-}
 
+@keyframes bgcol {
+    0%   { background-color: red; }
+    25%  { background-color: yellow; }
+    50%  { background-color: blue; }
+    100% { background-color: green; }
+}
+.anim {
+  animation-name: bgcol;
+  animation-duration: 4s;
+  animation-iteration-count: 7;
+  /* background-color: red; */
+}
 
 FlexboxLayout{
   flex-direction: column;
