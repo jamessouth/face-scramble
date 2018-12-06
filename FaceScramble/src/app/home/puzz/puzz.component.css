@@ -8,16 +8,19 @@
 }
 
 @keyframes bgcol {
-    0%   { background-color: red; }
-    25%  { background-color: yellow; }
-    50%  { background-color: blue; }
-    100% { background-color: green; }
+    0%     { background-color: #eee0cb; }
+    17%    { background-color: #839755; }
+    33%     { background-color: #eee0cb; }
+    50%    { background-color: #2274a5; }
+    67%     { background-color: #eee0cb; }
+    83%    { background-color: #880d1e; }
+    100%   { background-color: #eee0cb; }
 }
 .anim {
   animation-name: bgcol;
-  animation-duration: 4s;
-  animation-iteration-count: 7;
-  /* background-color: red; */
+  animation-duration: 4.6s;
+  animation-delay: .4s;
+  animation-iteration-count: 170;
 }
 
 FlexboxLayout{
