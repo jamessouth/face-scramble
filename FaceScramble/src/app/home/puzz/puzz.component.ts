@@ -12,7 +12,7 @@ import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/mod
 import { ModalComponent } from "../modal/modal.component";
 import { getBoardOrder, getCanvArray, onWin } from "./puzzutils";
 
-import { setInterval, clearInterval } from "tns-core-modules/timer";
+import { setInterval, setTimeout, clearInterval, clearTimeout } from "tns-core-modules/timer";
 
 
 
@@ -43,9 +43,29 @@ export class PuzzComponent implements OnInit {
     }
   }
 
-  startTimer(): void {
-    this.timer = setInterval(() => this.time++, 1000);
+
+
+
+
+
+
+
+  timerCtrl(mil): void {
+    function adj(mil): void {
+      this.timer = setTimeout(() => {
+        this.time += 1000;
+        adj.call(this, mil);
+      }, 1000 - new Date().getMilliseconds() + mil);
+    }
+    adj.call(this, mil);
   }
+
+
+
+
+
+
+
 
   onPlayAgain(): void {
     this.data.changeSize(2);
@@ -146,12 +166,12 @@ export class PuzzComponent implements OnInit {
         return;
       }
     }
-    const brdInd: number = this.boardOrder[tileClicked];
     this.moves += 1;
     if (this.moves === 1) {
       // const now = ;
-      this.startTimer();
+      this.timerCtrl(new Date().getMilliseconds());
     }
+    const brdInd: number = this.boardOrder[tileClicked];
     this.grid.getChildAt(tileClicked).style.backgroundImage = '';
     this.grid.getChildAt(blank).style.backgroundImage = isAndroid ? this.image.src._android : this.image.src;
     this.grid.getChildAt(blank).style.backgroundSize = `${this.size}00% ${this.size}00%`;
@@ -177,7 +197,7 @@ export class PuzzComponent implements OnInit {
       this.grid.getChildAt(this.canvArray.length - 1).style.backgroundPosition = `${this.canvArray[this.canvArray.length - 1][0] * 100/(this.size - 1)}% ${this.canvArray[this.canvArray.length - 1][1] * 100/(this.size - 1)}%`;
       this.canvArray.splice(0);
       this.gameOver = true;
-      clearInterval(this.timer);
+      clearTimeout(this.timer);
       onWin(this.abtitle);
     }
   }

@@ -4,7 +4,7 @@
 
 <ScrollView>
   <FlexboxLayout class="page">
-    <Label width="300" class="moves text-center" text="Moves: {{moves}}  Time: {{time}}s"></Label>
+    <Label width="300" class="moves text-center" text="Moves: {{ moves | number }}    Time: {{ time | date:'mm:ss' }}"></Label>
 
     <GridLayout class="m-t-30 m-b-30" #grid (loaded)="onGridLoad(grid)" (touch)="onTouch($event)" backgroundColor="{{color}}"></GridLayout>
 
