@@ -1,13 +1,6 @@
-FlexboxLayout {
+FlexboxLayout{
   justify-content: center;
-  align-items: center;
 }
-
-
-.btn {
-    width: 80%;
-    background-color: #880d1e;
-    color: #eee0cb;
-    font-size: 18;
-
+.btn{
+  margin-bottom: 0;
 }

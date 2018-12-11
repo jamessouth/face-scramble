@@ -1,20 +1,4 @@
-/*
-In NativeScript, the app.css file is where you place CSS rules that
-you would like to apply to your entire application. Check out
-http://docs.nativescript.org/ui/styling for a full list of the CSS
-selectors and properties you can use to style UI components.
-
-/*
-In many cases you may want to use the NativeScript core theme instead
-of writing your own CSS rules. For a full list of class names in the theme
-refer to http://docs.nativescript.org/ui/theme.
-*/
 @import '~nativescript-theme-core/css/lime.css';
-
-/*
-For example, the following CSS rule changes the font size of all UI
-components that have the btn class name.
-*/
 
 .action-bar{
   background-color: #eee0cb;
@@ -22,4 +6,22 @@ components that have the btn class name.
 }
 .page{
   background: linear-gradient(#839755 0%, #eee0cb 50%, #839755 100%);
+}
+FlexboxLayout{
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.btn{
+  background-color: #880d1e;
+  color: #eee0cb;
+  font-size: 18;
+  margin-bottom: 55;
+  width: 80%;
+}
+Label{
+  font-size: 20;
+}
+.picbtn{
+  background-color: #2274a5;
 }

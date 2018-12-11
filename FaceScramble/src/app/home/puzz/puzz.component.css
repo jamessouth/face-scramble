@@ -1,13 +1,9 @@
 .moves{
   font-size: 22;
   font-weight: bold;
-  /* border-width: 1;
-  border-color: #000000; */
   margin-top: 55;
-
 }
-
-@keyframes bgcol {
+@keyframes bgcol{
     0%     { background-color: #eee0cb; }
     17%    { background-color: #839755; }
     33%     { background-color: #eee0cb; }
@@ -16,26 +12,12 @@
     83%    { background-color: #880d1e; }
     100%   { background-color: #eee0cb; }
 }
-.anim {
+.anim{
   animation-name: bgcol;
   animation-duration: 4.6s;
   animation-delay: .4s;
   animation-iteration-count: 170;
 }
-
-FlexboxLayout{
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-.btn{
-  background-color: #880d1e;
-  color: #eee0cb;
-  font-size: 18;
-  margin-bottom: 55;
-  /* width: 80%; */
-}
 .picbtn{
-  width: 80%;
-  /* background-color: #2274a5; */
+  background-color: #880d1e;
 }

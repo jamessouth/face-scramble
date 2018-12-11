@@ -1,7 +1,6 @@
 <ActionBar class="action-bar">
     <Label class="action-bar-title" text="Edit Photo"></Label>
 </ActionBar>
-
 <ScrollView>
   <FlexboxLayout class="page">
     <StackLayout>
@@ -9,7 +8,6 @@
       <FlexboxLayout *ngIf="imageSrc" class="img m-b-30">
         <Image width="300" height="300" [src]="imageSrc"></Image>
       </FlexboxLayout>
-
     </StackLayout>
     <Button class="btn btn-primary btn-rounded-sm btn-active" text="Play!" [nsRouterLink]="['/puzz']"></Button>
   </FlexboxLayout>

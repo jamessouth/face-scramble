@@ -1,27 +1,24 @@
 import { Component, OnInit, ViewContainerRef } from "@angular/core";
-import { OptionsService } from '../options.service';
-import { GestureEventData, TouchGestureEventData } from "tns-core-modules/ui/gestures";
+import { TouchGestureEventData } from "tns-core-modules/ui/gestures";
 import { GridLayout } from "tns-core-modules/ui/layouts/grid-layout";
 import { Label } from "tns-core-modules/ui/label";
-import { isAndroid, isIOS, device, screen } from "tns-core-modules/platform";
+import { isAndroid, screen } from "tns-core-modules/platform";
 import { Image } from "tns-core-modules/ui/image";
 import { RouterExtensions } from "nativescript-angular/router";
 import { AnimationCurve } from "tns-core-modules/ui/enums";
 import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
-// import { Animation } from "tns-core-modules/ui/animation";
+import { setTimeout, clearTimeout } from "tns-core-modules/timer";
+
 import { ModalComponent } from "../modal/modal.component";
 import { getBoardOrder, getCanvArray, onWin } from "./puzzutils";
-
-import { setInterval, setTimeout, clearInterval, clearTimeout } from "tns-core-modules/timer";
-
-
-
+import { OptionsService } from '../options.service';
 
 @Component({
   selector: "Puzz",
+  moduleId: module.id,
   providers: [ModalDialogService],
-  templateUrl: "./app/home/puzz/puzz.component.html",
-  styleUrls: ["./app/home/puzz/puzz.component.css"]
+  templateUrl: "./puzz.component.html",
+  styleUrls: ["./puzz.component.css"]
 })
 export class PuzzComponent implements OnInit {
   color: string;
@@ -37,35 +34,36 @@ export class PuzzComponent implements OnInit {
   grid: GridLayout;
   gameOver: boolean = false;
 
+  constructor(
+    private data: OptionsService,
+    private routerExtensions: RouterExtensions,
+    private modalService: ModalDialogService,
+    private viewContainerRef: ViewContainerRef
+  ) {}
+
+  ngOnInit(): void {
+    this.data.currentColor$.subscribe(color => this.color = color);
+    this.data.currentSize$.subscribe(size => this.size = size);
+    this.data.currentImage$.subscribe(image => this.image = image);
+    this.canvArray = getCanvArray(this.size);
+    this.boardOrder = getBoardOrder(this.size);
+  }
+
   onTouch(e: TouchGestureEventData): void {
-    if(e && e.action === 'down'){
+    if (e && e.action === 'down') {
       this.swapTiles(e.getX(), e.getY());
     }
   }
 
-
-
-
-
-
-
-
-  timerCtrl(mil): void {
-    function adj(mil): void {
-      this.timer = setTimeout(() => {
+  timerCtrl(mil: number): void {
+    function adj(mil: number): void {
+      this.timer = setTimeout((): void => {
         this.time += 1000;
         adj.call(this, mil);
       }, 1000 - new Date().getMilliseconds() + mil);
     }
     adj.call(this, mil);
   }
-
-
-
-
-
-
-
 
   onPlayAgain(): void {
     this.data.changeSize(2);
@@ -97,30 +95,9 @@ export class PuzzComponent implements OnInit {
     this.modalService.showModal(ModalComponent, options);
   }
 
-  constructor(
-    private data: OptionsService,
-    private routerExtensions: RouterExtensions,
-    private modalService: ModalDialogService,
-    private viewContainerRef: ViewContainerRef
-  ) {}
-
-  ngOnInit(): void {
-    this.data.currentColor$.subscribe(color => this.color = color);
-    this.data.currentSize$.subscribe(size => this.size = size);
-    this.data.currentImage$.subscribe(image => this.image = image);
-    this.canvArray = getCanvArray(this.size);
-    this.boardOrder = getBoardOrder(this.size);
-  }
-
-
-
-
-
-  onLoadTitle(el): void {
+  onLoadTitle(el: Label): void {
     this.abtitle = el;
   }
-
-
 
   onGridLoad(el): void {
     [el.columns, el.rows] = ['auto,'.repeat(this.size - 1) + 'auto', 'auto,'.repeat(this.size - 1) + 'auto'];
@@ -128,7 +105,7 @@ export class PuzzComponent implements OnInit {
     const width: number = Math.min(screen.mainScreen.widthDIPs, screen.mainScreen.heightDIPs);
     this.tileSize = ((width * .98) / this.size);
     for(let i = 0; i < (this.size * this.size) - 1; i += 1){
-      let newLabel = new Label();
+      const newLabel = new Label();
       newLabel.style.backgroundImage = isAndroid ? this.image.src._android : this.image.src;
       newLabel.width = this.tileSize;
       newLabel.height = this.tileSize;
@@ -139,7 +116,7 @@ export class PuzzComponent implements OnInit {
       newLabel.style.backgroundPosition = `${this.canvArray[this.boardOrder[i]][0] * 100/(this.size - 1)}% ${this.canvArray[this.boardOrder[i]][1] * 100/(this.size - 1)}%`;
       this.grid.addChild(newLabel);
     }
-    let newLabel = new Label();
+    const newLabel = new Label();
     newLabel.style.backgroundImage = '';
     newLabel.width = this.tileSize;
     newLabel.height = this.tileSize;
@@ -154,21 +131,20 @@ export class PuzzComponent implements OnInit {
     const blank: number = this.boardOrder.indexOf(this.canvArray.length - 1);
     const tilePos: number = tileClicked - blank;
     if (blank % this.size === 0) {
-      if (tilePos !== -this.size && tilePos !== 1 && tilePos !== this.size){
+      if (tilePos !== -this.size && tilePos !== 1 && tilePos !== this.size) {
         return;
       }
     } else if ((blank + 1) % this.size === 0) {
-      if (tilePos !== -this.size && tilePos !== -1 && tilePos !== this.size){
+      if (tilePos !== -this.size && tilePos !== -1 && tilePos !== this.size) {
         return;
       }
     } else {
-      if (Math.abs(tilePos) !== 1 && Math.abs(tilePos) !== this.size){
+      if (Math.abs(tilePos) !== 1 && Math.abs(tilePos) !== this.size) {
         return;
       }
     }
     this.moves += 1;
     if (this.moves === 1) {
-      // const now = ;
       this.timerCtrl(new Date().getMilliseconds());
     }
     const brdInd: number = this.boardOrder[tileClicked];

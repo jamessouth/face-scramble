@@ -7,7 +7,7 @@ function getRands(amt: number): Array<number> {
   return Array.from(nums);
 }
 
-function checkBoard(size) {
+function checkBoard(size: number): Array<Array<number>> {
   const randos: Array<number> = getRands(size * size - 1);
   const solArray: Array<number> = [];
   randos.forEach((x, i) => {
@@ -29,11 +29,7 @@ function getInversions(arr: Array<number>): number {
   return inversions;
 }
 
-
-
-
-
-export function getBoardOrder(size): Array<number> {
+function getBoardOrder(size: number): Array<number> {
   let doable = checkBoard(size);
   while (getInversions(doable[0]) % 2 !== 0) {
     doable = checkBoard(size);
@@ -41,12 +37,8 @@ export function getBoardOrder(size): Array<number> {
   return doable[1];
 }
 
-
-
-
-
-export function getCanvArray(size): Array<any> {
-  const canvArray: Array<any> = [];
+function getCanvArray(size): Array<Array<number>> {
+  const canvArray: Array<Array<number>> = [];
   for (let i = 0; i < size; i += 1) {
     for (let j = 0; j < size; j += 1) {
       canvArray.push([j, i]);
@@ -55,19 +47,7 @@ export function getCanvArray(size): Array<any> {
   return canvArray;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-export function onWin(el): void {
+function onWin(el): void {
   el.animate({
       duration: 800,
       delay: 100,
@@ -83,3 +63,5 @@ export function onWin(el): void {
       scale: { x: 3.7, y: 3 }
   }));
 }
+
+export { getBoardOrder, getCanvArray, onWin };

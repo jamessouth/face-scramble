@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { ModalDialogParams } from "nativescript-angular/modal-dialog";
-import { OptionsService } from '../options.service';
 import { Image } from "tns-core-modules/ui/image";
+
+import { OptionsService } from '../options.service';
 
 @Component({
     selector: "Modal",
-    templateUrl: "./app/home/modal/modal.component.html",
-    styleUrls: ["./app/home/modal/modal.component.css"]
+    moduleId: module.id,
+    templateUrl: "./modal.component.html",
+    styleUrls: ["./modal.component.css"]
 })
 export class ModalComponent implements OnInit {
     image: Image;
