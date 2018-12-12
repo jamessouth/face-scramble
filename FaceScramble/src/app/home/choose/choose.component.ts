@@ -7,6 +7,12 @@ import { path, knownFolders } from "tns-core-modules/file-system";
 
 import { OptionsService } from '../options.service';
 
+
+
+
+
+
+
 @Component({
   selector: "Choose",
   moduleId: module.id,
@@ -48,7 +54,6 @@ export class ChooseComponent implements OnInit {
           const folder = knownFolders.documents();
           const path2 = path.join(folder.path, `Image${this.counter}.jpg`);
           const saved = imsr.saveToFile(path2, "jpg");
-          console.log(path2);
           const img = new Image();
           img.src = path2;
           this.data.changeImage(img);

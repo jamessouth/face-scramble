@@ -3,3 +3,6 @@
   align-items: center;
   flex-direction: column;
 }
+.picbtn{
+  background-color: #555555;
+}

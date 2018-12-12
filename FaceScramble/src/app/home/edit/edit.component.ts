@@ -25,7 +25,7 @@ export class EditComponent implements OnInit {
 
   public onEditPhoto(): void {
     console.log('here');
-    console.dir(screen.mainScreen);
+    // console.dir(screen.mainScreen);
     // const photoEditor = new PhotoEditor();
     // this.startEdit(photoEditor)
   }

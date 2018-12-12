@@ -4,11 +4,11 @@
 <ScrollView>
   <FlexboxLayout class="page">
     <StackLayout>
-      <Button class="picbtn btn btn-primary btn-rounded-sm btn-active" text="Edit Photo" (tap)="onEditPhoto()"></Button>
+      <Button isEnabled="false" class="picbtn btn btn-primary btn-rounded-sm btn-active" text="EDIT PHOTO" (tap)="onEditPhoto()"></Button>
       <FlexboxLayout *ngIf="imageSrc" class="img m-b-30">
         <Image width="300" height="300" [src]="imageSrc"></Image>
       </FlexboxLayout>
     </StackLayout>
-    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Play!" [nsRouterLink]="['/puzz']"></Button>
+    <Button class="btn btn-primary btn-rounded-sm btn-active" text="PLAY!" [nsRouterLink]="['/puzz']" clearHistory="true"></Button>
   </FlexboxLayout>
 </ScrollView>

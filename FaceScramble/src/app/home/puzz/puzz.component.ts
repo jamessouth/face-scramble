@@ -125,6 +125,7 @@ export class PuzzComponent implements OnInit {
     this.grid.addChild(newLabel);
   }
 
+
   swapTiles(x: number, y: number): void {
     if (this.canvArray.length === 0) { return; }
     const tileClicked: number = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);

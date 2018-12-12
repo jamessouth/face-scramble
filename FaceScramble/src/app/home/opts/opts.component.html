@@ -5,7 +5,7 @@
   <FlexboxLayout class="page">
     <StackLayout class="m-t-30 m-b-30 bord">
       <StackLayout class="m-b-20">
-        <Label class="m-t-10 m-b-10 text-center" text="Color for Blank Tile:"></Label>
+        <Label class="m-t-10 m-b-20 text-center" text="Color for Blank Tile:"></Label>
         <Label width="50" height="50" backgroundColor="{{color}}"></Label>
       </StackLayout>
       <StackLayout class="m-b-10">
@@ -27,6 +27,6 @@
         <Slider class="slider" value="2" (valueChange)="onSizeSliderChange($event)" minValue="2" maxValue="10"></Slider>
       </StackLayout>
     </StackLayout>
-    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Next >" [nsRouterLink]="['/choose']"></Button>
+    <Button class="btn btn-primary btn-rounded-sm btn-active" text="NEXT" [nsRouterLink]="['/choose']"></Button>
   </FlexboxLayout>
 </ScrollView>

@@ -4,11 +4,11 @@
 <ScrollView>
   <FlexboxLayout class="page">
     <StackLayout class="m-t-30">
-      <Button class="picbtn btn btn-primary btn-rounded-sm btn-active" text="Choose Photo" (tap)="onChoosePhoto()"></Button>
+      <Button class="picbtn btn btn-primary btn-rounded-sm btn-active" text="CHOOSE PHOTO" (tap)="onChoosePhoto()"></Button>
       <FlexboxLayout *ngIf="image.src" class="img m-b-30">
         <Image [width]="width" [height]="width" [src]="image.src"></Image>
       </FlexboxLayout>
     </StackLayout>
-    <Button class="btn btn-primary btn-rounded-sm btn-active" text="Next >" [nsRouterLink]="['/edit']"></Button>
+    <Button [isEnabled]="!!image.src" [class.disabled]="!image.src" class="btn btn-primary btn-rounded-sm btn-active" text="NEXT" [nsRouterLink]="['/edit']"></Button>
   </FlexboxLayout>
 </ScrollView>
