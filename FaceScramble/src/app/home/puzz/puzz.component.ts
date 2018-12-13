@@ -10,8 +10,14 @@ import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/mod
 import { setTimeout, clearTimeout } from "tns-core-modules/timer";
 
 import { ModalComponent } from "../modal/modal.component";
-import { getBoardOrder, getCanvArray, onWin } from "./puzzutils";
+import { getBoardOrder, getCanvArray, onWinAnd, onWinIOS } from "./puzzutils";
 import { OptionsService } from '../options.service';
+
+
+
+
+
+
 
 @Component({
   selector: "Puzz",
@@ -125,7 +131,6 @@ export class PuzzComponent implements OnInit {
     this.grid.addChild(newLabel);
   }
 
-
   swapTiles(x: number, y: number): void {
     if (this.canvArray.length === 0) { return; }
     const tileClicked: number = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
@@ -175,7 +180,7 @@ export class PuzzComponent implements OnInit {
       this.canvArray.splice(0);
       this.gameOver = true;
       clearTimeout(this.timer);
-      onWin(this.abtitle);
+      isAndroid ? onWinAnd(this.abtitle) : onWinIOS(this.abtitle);
     }
   }
 }

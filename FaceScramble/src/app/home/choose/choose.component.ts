@@ -7,12 +7,6 @@ import { path, knownFolders } from "tns-core-modules/file-system";
 
 import { OptionsService } from '../options.service';
 
-
-
-
-
-
-
 @Component({
   selector: "Choose",
   moduleId: module.id,

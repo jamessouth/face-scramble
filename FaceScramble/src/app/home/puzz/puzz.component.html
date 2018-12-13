@@ -1,5 +1,5 @@
 <ActionBar class="action-bar" [class.anim]="gameOver">
-  <Label class="action-bar-title" #abtitle (loaded)="onLoadTitle(abtitle)" [text]="gameOver ? 'YOU WIN!!!' : 'Puzzle'"></Label>
+  <Label width="100%" height="100%" class="action-bar-title text-center" #abtitle (loaded)="onLoadTitle(abtitle)" [text]="gameOver ? 'YOU WIN!!!' : 'Puzzle'"></Label>
 </ActionBar>
 <ScrollView>
   <FlexboxLayout class="page">

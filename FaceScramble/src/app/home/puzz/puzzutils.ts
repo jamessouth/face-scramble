@@ -47,7 +47,13 @@ function getCanvArray(size): Array<Array<number>> {
   return canvArray;
 }
 
-function onWin(el): void {
+const animObj = {
+    duration: 3000,
+    curve: 'spring',
+    scale: { x: 3.7, y: 3 }
+};
+
+function onWinAnd(el): void {
   el.animate({
       duration: 800,
       delay: 100,
@@ -57,11 +63,11 @@ function onWin(el): void {
       duration: 800,
       curve: 'easeInOut',
       scale: { x: .5, y: .5 }
-  })).then(() => el.animate({
-      duration: 3000,
-      curve: 'spring',
-      scale: { x: 3.7, y: 3 }
-  }));
+  })).then(() => el.animate(animObj));
 }
 
-export { getBoardOrder, getCanvArray, onWin };
+function onWinIOS(el): void {
+  el.animate(animObj);
+}
+
+export { getBoardOrder, getCanvArray, onWinAnd, onWinIOS };
