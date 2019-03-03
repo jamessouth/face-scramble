@@ -2,7 +2,7 @@
   "nativescript": {
     "id": "org.nativescript.FaceScramble",
     "tns-android": {
-      "version": "5.1.0"
+      "version": "5.2.1"
     }
   },
   "description": "NativeScript Application",
