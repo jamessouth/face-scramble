@@ -1,5 +1,5 @@
 # face-scramble
-NativeScript app to play a sliding block puzzle/15 puzzle
+NativeScript/TypeScript/Angular app to play a sliding block puzzle/15 puzzle
 
 Use any picture or photo on your device (square images look best)
 
