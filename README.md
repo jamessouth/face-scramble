@@ -6,6 +6,8 @@ NativeScript/TypeScript/Angular app to play a [sliding block puzzle/15 puzzle](h
 
 Use any picture or photo on your device (square images look best)
 
+My computer doesn't have enough RAM to build this for production, so I haven't published it yet.
+
 To run:
 
 * Download and run `npm install` or `yarn`.
