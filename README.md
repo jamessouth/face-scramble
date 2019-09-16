@@ -1,6 +1,6 @@
 # face-scramble
 
-![1](https://github.com/jamessouth/face-scramble/blob/master/FaceScramble/ss1.jpg) ![2](https://github.com/jamessouth/face-scramble/blob/master/FaceScramble/ss2.jpg) ![3](https://github.com/jamessouth/face-scramble/blob/master/FaceScramble/ss3.jpg)
+![1](https://github.com/jamessouth/face-scramble/blob/master/ss1.jpg) ![2](https://github.com/jamessouth/face-scramble/blob/master/ss2.jpg) ![3](https://github.com/jamessouth/face-scramble/blob/master/ss3.jpg)
 
 NativeScript/TypeScript/Angular app to play a [sliding block puzzle/15 puzzle](https://en.wikipedia.org/wiki/15_puzzle)
 
@@ -20,5 +20,3 @@ To run:
 
 
 -----------------------------------------------------------------------------------
-
-
