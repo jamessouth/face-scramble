@@ -4,9 +4,9 @@
 
 NativeScript/TypeScript/Angular app to play a [sliding block puzzle/15 puzzle](https://en.wikipedia.org/wiki/15_puzzle)
 
-Use any picture or photo on your device (square images look best)
+Use any picture or photo on your device (square images look best).
 
-My computer doesn't have enough RAM to build this for production, so I haven't published it yet.
+*NOTE:  My computer doesn't have enough RAM to build this for production, so I haven't published it yet.*
 
 To run:
 
@@ -17,3 +17,8 @@ To run:
 * On your device, open the {N} Playground app and use it to scan the QR code produced by `tns preview`.
 * Face Scramble will open up in the {N} Preview app.
 * Enjoy! 😃
+
+
+-----------------------------------------------------------------------------------
+
+
