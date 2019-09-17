@@ -33,9 +33,9 @@ export class PuzzComponent implements OnInit {
   abtitle: Label;
   moves: number = 0;
   time: number = 0;
-  timer: any;
+  timer: number;
   tileSize: number = 0;
-  canvArray: Array<any> = [];
+  canvArray: Array<Array<number>> = [];
   boardOrder: Array<number> = [];
   grid: GridLayout;
   gameOver: boolean = false;
