@@ -3,6 +3,9 @@
     "id": "org.nativescript.FaceScramble",
     "tns-android": {
       "version": "6.1.0"
+    },
+    "tns-ios": {
+      "version": "6.1.0"
     }
   },
   "name": "face-scramble",
@@ -40,9 +43,9 @@
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "~8.2.0",
+    "@angular/compiler-cli": "^8.2.6",
     "@nativescript/schematics": "^0.6.0",
-    "@ngtools/webpack": "~8.2.0",
+    "@ngtools/webpack": "^8.2.2",
     "nativescript-dev-webpack": "~1.2.0",
     "typescript": "3.4.5",
     "uglifyjs-webpack-plugin": "^2.1.3"

@@ -8,16 +8,9 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { AnimationCurve } from "tns-core-modules/ui/enums";
 import { ModalDialogService, ModalDialogOptions } from "nativescript-angular/modal-dialog";
 import { setTimeout, clearTimeout } from "tns-core-modules/timer";
-
 import { ModalComponent } from "../modal/modal.component";
 import { getBoardOrder, getCanvArray, onWinAnd, onWinIOS } from "./puzzutils";
 import { OptionsService } from '../options.service';
-
-
-
-
-
-
 
 @Component({
   selector: "Puzz",
@@ -131,35 +124,46 @@ export class PuzzComponent implements OnInit {
     this.grid.addChild(newLabel);
   }
 
-  swapTiles(x: number, y: number): void {
-    if (this.canvArray.length === 0) { return; }
-    const tileClicked: number = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
-    const blank: number = this.boardOrder.indexOf(this.canvArray.length - 1);
-    const tilePos: number = tileClicked - blank;
+  isInvalidTile(tile, blank): boolean {
     if (blank % this.size === 0) {
-      if (tilePos !== -this.size && tilePos !== 1 && tilePos !== this.size) {
-        return;
+      if (tile !== -this.size && tile !== 1 && tile !== this.size) {
+        return true;
       }
     } else if ((blank + 1) % this.size === 0) {
-      if (tilePos !== -this.size && tilePos !== -1 && tilePos !== this.size) {
-        return;
+      if (tile !== -this.size && tile !== -1 && tile !== this.size) {
+        return true;
       }
     } else {
-      if (Math.abs(tilePos) !== 1 && Math.abs(tilePos) !== this.size) {
-        return;
+      if (Math.abs(tile) !== 1 && Math.abs(tile) !== this.size) {
+        return true;
       }
     }
-    this.moves += 1;
-    if (this.moves === 1) {
-      this.timerCtrl(new Date().getMilliseconds());
-    }
-    const brdInd: number = this.boardOrder[tileClicked];
-    this.grid.getChildAt(tileClicked).style.backgroundImage = '';
-    this.grid.getChildAt(blank).style.backgroundImage = isAndroid ? this.image.src._android : this.image.src;
-    this.grid.getChildAt(blank).style.backgroundSize = `${this.size}00% ${this.size}00%`;
-    this.grid.getChildAt(blank).style.backgroundPosition = `${this.canvArray[brdInd][0] * 100/(this.size - 1)}% ${this.canvArray[brdInd][1] * 100/(this.size - 1)}%`;
-    [this.boardOrder[tileClicked], this.boardOrder[blank]] = [this.boardOrder[blank], this.boardOrder[tileClicked]];
-    let finalCheck: boolean = false;
+    return false;
+  }
+
+  getTileAndBlank(x, y): Array<number> {
+    const tile = (Math.floor(y / this.tileSize) * this.size) + Math.floor(x / this.tileSize);
+    const blank = this.boardOrder.indexOf(this.canvArray.length - 1);
+    return [tile, blank];
+  }
+
+  setImageSizePosition(tile, pos): void {
+    this.grid.getChildAt(tile).style.backgroundImage = isAndroid ? this.image.src._android : this.image.src;
+    this.grid.getChildAt(tile).style.backgroundSize = `${this.size}00% ${this.size}00%`;
+    this.grid.getChildAt(tile).style.backgroundPosition = `${pos[0] * 100/(this.size - 1)}% ${pos[1] * 100/(this.size - 1)}%`;
+  }
+
+  updatePuzzle(tile, ind, blank): void {
+    this.grid.getChildAt(tile).style.backgroundImage = '';
+    this.setImageSizePosition(blank, this.canvArray[ind]);
+  }
+
+  updateBoardOrder(tile, blank): void {
+    [this.boardOrder[tile], this.boardOrder[blank]] = [this.boardOrder[blank], this.boardOrder[tile]];
+  }
+
+  checkForWin(): boolean {
+    let finalCheck = false;
     if (this.boardOrder[0] === 0
       && this.boardOrder[this.size - 1] === this.size - 1
       && this.boardOrder[this.size * (this.size - 1) - 1] === this.size * (this.size - 1) - 1
@@ -173,10 +177,20 @@ export class PuzzComponent implements OnInit {
         }
       }
     }
-    if (finalCheck) {
-      this.grid.getChildAt(this.canvArray.length - 1).style.backgroundImage = isAndroid ? this.image.src._android : this.image.src;
-      this.grid.getChildAt(this.canvArray.length - 1).style.backgroundSize = `${this.size}00% ${this.size}00%`;
-      this.grid.getChildAt(this.canvArray.length - 1).style.backgroundPosition = `${this.canvArray[this.canvArray.length - 1][0] * 100/(this.size - 1)}% ${this.canvArray[this.canvArray.length - 1][1] * 100/(this.size - 1)}%`;
+    return finalCheck;
+  }
+
+  swapTiles(x: number, y: number): void {
+    if (this.canvArray.length === 0) { return; }
+    const [tileClicked, blank] = this.getTileAndBlank(x, y);
+    if (this.isInvalidTile(tileClicked - blank, blank)) { return; }
+    this.moves += 1;
+    this.moves === 1 && this.timerCtrl(new Date().getMilliseconds());
+    const brdInd: number = this.boardOrder[tileClicked];
+    this.updatePuzzle(tileClicked, brdInd, blank);
+    this.updateBoardOrder(tileClicked, blank);
+    if (this.checkForWin()) {
+      this.setImageSizePosition(this.canvArray.length - 1, this.canvArray[this.canvArray.length - 1]);
       this.canvArray.splice(0);
       this.gameOver = true;
       clearTimeout(this.timer);
